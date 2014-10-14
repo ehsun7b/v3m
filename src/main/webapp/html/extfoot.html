@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<h2>فوتبال خارجی</h2>
+<div class="hotNewsList" data-ng-repeat="news in newsList">
+  <a href="#news/{{news.id}}">
+    <div class="hotNews">
+      <div class="hotNewsImage"><img alt="{{news.title}}" src="/service/image/news/main/80/60/{{news.id}}" /></div>
+      <div class="hotNewsPreTitle">{{news.preTitle}}</div>
+      <div class="hotNewsTitle">{{news.title}}</div>
+      <div class="hotNewsAbstract">{{news.abstractText}}</div>
+    </div>
+  </a>
+</div>

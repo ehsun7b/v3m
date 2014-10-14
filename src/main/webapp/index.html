@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html data-ng-app="app" data-ng-controller="MainCtrl">
+  <head>
+    <title>{{Page.title()}}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-rtl.min.css">    
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css">
+    <link rel="stylesheet" href="css/layout.css">
+  </head>
+  <body class="nasim">
+
+    <div id="wrapper" data-ng-controller="MenuCtrl" class="{{showClass}}">      
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">       
+        <ul class="sidebar-nav">
+          <li><i style="cursor: pointer" class="fa fa-arrow-circle-right" data-ng-click="toggle()"><span class="nasim" style="font-size: larger"> بستن</span></i></li>
+          <li class="sidebar-brand">
+            <a href="/" data-ng-click="toggle()">ورزش ۳</a>            
+          </li>
+
+          <li>
+            <a href="#intfoot" data-ng-click="toggle()">فوتبالی داخلی</a>
+          </li>
+          <li>
+            <a href="#extfoot" data-ng-click="toggle()">فوتبالی خارجی</a>
+          </li>
+          <li>
+            <a href="#sports" data-ng-click="toggle()">غیر فوتبالی</a>
+          </li>
+          <li>
+            <a href="#newspapers" data-ng-click="toggle()">روزنامه‌های ورزشی</a>
+          </li>
+          <li>
+            <a href="#tv" data-ng-click="toggle()">جدول پخش ورزش از تلویزیون</a>
+          </li>
+        </ul>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <a data-ng-hide="menuShow" data-ng-click="toggle()" style="white-space: nowrap; margin-bottom: 15px; position: fixed; top: 10px; right: 15px;" class="btn btn-default">منوی اخبار</a> 
+        <br/>
+        <div data-ng-view></div>
+      </div>
+      <!-- /#page-content-wrapper -->
+
+      <span style="padding: 2px; background-color: red; color: white; border-radius: 2px; display: inline-block; position: absolute; left: 3px; top: 3px;">راه‌اندازی آزمایشی</span>
+    </div>
+    <!-- /#wrapper -->
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/services/Page.js"></script>
+    <script src="/js/controllers/MenuCtrl.js"></script>
+    <script src="/js/controllers/HomeCtrl.js"></script>
+    <script src="/js/controllers/MainCtrl.js"></script>
+    <script src="/js/controllers/NewsCtrl.js"></script>
+    <script src="/js/controllers/IntFootCtrl.js"></script>
+    <script src="/js/controllers/ExtFootCtrl.js"></script>
+    <script src="/js/controllers/SportsCtrl.js"></script>
+    <script src="/js/controllers/NewspapersCtrl.js"></script>
+    <script src="/js/controllers/TVCtrl.js"></script>
+    <script src="/js/directives/myAdSense.js"></script>
+    
+    <div data-ng-include src="'/html/analytics.html'"></div>
+  </body>
+</html>

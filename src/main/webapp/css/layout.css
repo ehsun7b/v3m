@@ -1,0 +1,277 @@
+@font-face {
+  font-family: "Nassim";
+  src: url("/fnt/nassim-regular.eot");
+  src: local("☺"),
+    url("/fnt/nassim-regular.woff") format("woff"),
+    url("/fnt/nassim-regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Nassim";
+  src: url("/fnt/nassim-bold.eot");
+  src: local("☺"),
+    url("/fnt/nassim-bold.woff") format("woff"),
+    url("/fnt/nassim-bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+bod {
+  direction: rtl;  
+}
+
+.nasim {
+  font-family: "Nassim",Arial,Verdana,Geneva,Helvetica,sans-serif;
+}
+
+#wrapper {
+  padding-left: 0px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  margin-right: 0px;
+}
+
+#wrapper.toggled {
+  padding-left: 0px;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  right: 250px;
+  width: 0;
+  height: 100%;
+  margin-right: -250px;
+  overflow-y: auto;
+  background: #000;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  text-indent: 20px;
+  line-height: 40px;
+}
+
+.sidebar-nav li a {
+  display: block;
+  text-decoration: none;
+  color: #999999;
+}
+
+.sidebar-nav li a:hover {
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+  height: 65px;
+  font-size: 18px;
+  line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  color: #fff;
+  background: none;
+}
+
+/*@media(min-width:768px) {*/
+#wrapper {
+  padding-right: 250px;
+}
+
+#wrapper.toggled {
+  padding-right: 0;
+}
+
+#sidebar-wrapper {
+  width: 250px;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 0;
+}
+
+#page-content-wrapper {
+  padding: 20px;
+
+  padding-right: 250;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: relative;
+  margin-right: 0;
+}
+/*}*/
+
+/* HOT NEWS */
+
+
+div.hotNewsList {
+
+}
+
+div.hotNews {
+  width: 50%;
+  float: right;
+  border: 0px dashed red;
+  min-height: 100px;
+  padding: 10px 20px;
+}
+
+div.hotNews2 {
+  width: 50%;
+  float: right;
+  border: 0px dashed red;
+  min-height: 100px;
+  padding: 10px 20px;
+}
+
+div.hotNews:hover {
+  background-color: #DFDFDF;
+  border-radius: 5px;
+}
+
+div.hotNewsPreTitle {
+  color: #333;
+  font-size: 12px;
+}
+
+div.hotNewsTitle {
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+}
+
+div.hotNewsAbstract {
+  font-size: 14px;
+  color: black;
+}
+
+div.hotNewsImage {
+  float: left;  
+}
+
+div.hotNewsImage img {
+  border-radius: 4px;
+}
+
+@media(max-width:640px) {
+  div.hotNews {
+    width: 100%;
+    float: none;
+  }
+}
+
+/* NEWS */
+
+div.news {
+  width: 100%;
+  border: 0px dashed red;
+}
+
+div.news div.newsImage {
+  float: left;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  text-align: left;
+  border: 0px dotted green;
+  max-width: 50%;
+}
+
+div.news div.newsImage img {
+  border-radius: 5px;
+  max-width: 99%;
+}
+
+div.news div.newsDetails {
+  font-size: 12px;
+  text-align: left;
+  color: #6633ff;
+}
+
+div.news div.newsPreTitle {
+  font-size: 14px;
+  color: #999;
+  width: 100%;
+}
+
+div.news div.newsTitle {
+  font-size: 22px;
+  font-weight: bold;
+  color: black;
+  width: 100%;
+}
+
+div.news div.newsAbstract, div.news div.newsText {
+  text-align: justify;
+  font-size: 16px;
+  width: 100%;
+}
+
+/* NEWSPAPERS */
+
+div.newspapers {
+  border: 0px solid red;
+  margin: 0px auto;
+}
+
+div.newspapers div.newspaper {
+  border: 0px #6633ff dashed;
+  text-align: center;
+}
+
+div.newspapers div.newspaper span.newspaperTitle {
+  display: block;
+  font-size: 18px;
+  padding-bottom: 10px;
+}
+
+div.newspapers div.newspaper img {
+  width: 100%;
+  max-width: 600px;
+}
+
+div.timetable {
+  font-size: 24px;
+}
