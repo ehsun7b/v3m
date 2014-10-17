@@ -275,3 +275,34 @@ div.newspapers div.newspaper img {
 div.timetable {
   font-size: 24px;
 }
+
+.socialPages {
+  text-align: left;
+  font-size: 26px;
+}
+
+.facebook {
+  color: #3b5998;
+}
+
+.facebook:hover {
+  opacity: 0.5;
+  color: #3b5998;
+}
+
+.gplus {
+  color: #d34836;
+}
+
+.gplus:hover {
+  opacity: 0.5;
+  color: #d34836;
+}
+
+/* inside news mainText */
+
+img.newsContentImage {
+  width: 99%;
+  max-width: 500px;
+}
+

@@ -18,8 +18,8 @@ public class FetchNewspaperBean implements FetchNewspaperBeanLocal {
   @Inject
   private NewspaperBeanLocal newspaperBean;
 
-  //@Schedule(hour = "12", minute = "30", second = "0", persistent = false)
-  @Schedule(hour = "*", minute = "*/10", persistent = false)
+  @Schedule(hour = "13", minute = "30", second = "0", persistent = false)
+  //@Schedule(hour = "*", minute = "*/10", persistent = false)
   @Override
   public void fetchNewspaper() {
     Logger.getLogger(FetchNewsBean.class.getName()).log(Level.INFO, "Fetching newspapers ...");

@@ -44,7 +44,7 @@ public class ImageService {
 
   //<editor-fold defaultstate="collapsed" desc="NEWS IMAGE">
   @GET
-  @Path("news/main/{newsId}")
+  @Path("news/main/{newsId}/photo.png")
   @Produces("image/png")
   public Response newsMainImage(@PathParam("newsId") Long newsId) {
 
@@ -82,7 +82,7 @@ public class ImageService {
   }
 
   @GET
-  @Path("news/main/{width}/{height}/{newsId}")
+  @Path("news/main/{width}/{height}/{newsId}/photo.png")
   @Produces("image/png")
   public Response newsMainImageThumbnail(
           @PathParam("width") Integer width,
@@ -134,7 +134,7 @@ public class ImageService {
   }
 
   @GET
-  @Path("news/main/f/{width}/{height}/{newsId}")
+  @Path("news/main/f/{width}/{height}/{newsId}/photo.png")
   @Produces("image/png")
   public Response newsMainImageForceThumbnail(
           @PathParam("width") Integer width,
@@ -182,7 +182,7 @@ public class ImageService {
   }
 
   @GET
-  @Path("news/main/c/{width}/{height}/{newsId}")
+  @Path("news/main/c/{width}/{height}/{newsId}/photo.png")
   @Produces("image/png")
   public Response newsMainImageCropThumbnail(
           @PathParam("width") Integer width,
@@ -232,7 +232,7 @@ public class ImageService {
 
   //<editor-fold defaultstate="collapsed" desc="NEWSPAPER PAGE IMAGE">
   @GET
-  @Path("newspaper/{pageId}")
+  @Path("newspaper/{pageId}/photo.png")
   @Produces("image/png")
   public Response newspaperPageImage(@PathParam("pageId") Long pageId) {
 

@@ -41,5 +41,5 @@ app.controller("HomeCtrl", function ($scope, Page, $http) {
 
 
   $scope.loadHotNews();
-  $scope.loadFootNews();
+  //$scope.loadFootNews();
 });

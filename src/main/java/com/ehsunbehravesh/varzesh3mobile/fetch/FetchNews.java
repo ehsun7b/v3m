@@ -68,7 +68,10 @@ public class FetchNews {
     Element tr2 = bodyTable.select("tr").get(1);
     Element tr2td1 = tr2.select("td").get(0);
     Element div = tr2td1.select("div").get(0);
-    String mainText = div.text().trim();
+    Element font = div.select("font").get(0);    
+    
+    String mainText = font.html();
+    
     result.setMainText(mainText);
 
     result.setCategory(category);
