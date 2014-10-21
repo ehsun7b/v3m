@@ -30,6 +30,10 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: "html/tv.html",
             controller: "TVCtrl"
           })
+          .when("/results", {
+            templateUrl: "html/results.html",
+            controller: "ResultsCtrl"
+          })
           .otherwise({
             redirectTo: "/"
           });
@@ -39,5 +43,11 @@ app.config(function ($routeProvider, $locationProvider) {
           .hashPrefix("!");
 
 });
+
+app.run([
+  '$rootScope', function ($rootScope) {
+    $rootScope.facebookAppId = '623178241126464';
+  }
+]);
 
 

@@ -1,7 +1,6 @@
 package com.ehsunbehravesh.varzesh3mobile.service;
 
 import com.ehsunbehravesh.varzesh3mobile.fetch.FetchTVPrograms;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.GET;
@@ -15,7 +14,7 @@ import javax.ws.rs.core.Response;
  */
 @Path("widget")
 public class HTMLWidgetService {
-  
+
   @GET
   @Path("tv")
   @Produces("text/html; charset=UTF-8")
@@ -30,5 +29,5 @@ public class HTMLWidgetService {
       Response response = Response.serverError().build();
       return response;
     }
-  } 
+  }
 }

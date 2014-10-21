@@ -17,8 +17,8 @@ public class FetchNewspaperBean implements FetchNewspaperBeanLocal {
 
   @Inject
   private NewspaperBeanLocal newspaperBean;
-
-  @Schedule(hour = "13", minute = "30", second = "0", persistent = false)
+  
+  @Schedule(hour = "8,9,10,11,12,13", minute = "30", second = "0", persistent = false)
   //@Schedule(hour = "*", minute = "*/10", persistent = false)
   @Override
   public void fetchNewspaper() {
@@ -30,6 +30,4 @@ public class FetchNewspaperBean implements FetchNewspaperBeanLocal {
       newspaperBean.insertCollection(collection);
     }
   }
-
-  
 }

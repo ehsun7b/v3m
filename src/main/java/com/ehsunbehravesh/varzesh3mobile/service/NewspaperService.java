@@ -24,7 +24,7 @@ public class NewspaperService {
   @Path("last")
   public NewspaperCollection last() {
     NewspaperCollection result = newspaperBean.lastNewspaper();
-    
+
     return result;
   }
 }

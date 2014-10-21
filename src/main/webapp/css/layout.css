@@ -144,6 +144,10 @@ bod {
 }
 /*}*/
 
+div.pageContent {
+  clear: both;
+}
+
 /* HOT NEWS */
 
 
@@ -155,15 +159,7 @@ div.hotNews {
   width: 50%;
   float: right;
   border: 0px dashed red;
-  min-height: 100px;
-  padding: 10px 20px;
-}
-
-div.hotNews2 {
-  width: 50%;
-  float: right;
-  border: 0px dashed red;
-  min-height: 100px;
+  min-height: 120px;
   padding: 10px 20px;
 }
 
@@ -210,7 +206,7 @@ div.news {
   border: 0px dashed red;
 }
 
-div.news div.newsImage {
+div.news div.newsImage {  
   float: left;
   padding-right: 10px;
   padding-bottom: 10px;
@@ -228,6 +224,10 @@ div.news div.newsDetails {
   font-size: 12px;
   text-align: left;
   color: #6633ff;
+}
+
+div.news .newsDetails {
+  
 }
 
 div.news div.newsPreTitle {
@@ -279,6 +279,8 @@ div.timetable {
 .socialPages {
   text-align: left;
   font-size: 26px;
+  float: left;
+  margin-bottom: 10px;
 }
 
 .facebook {
@@ -299,6 +301,14 @@ div.timetable {
   color: #d34836;
 }
 
+div.socialButtons {
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+}
+
 /* inside news mainText */
 
 img.newsContentImage {
@@ -306,3 +316,26 @@ img.newsContentImage {
   max-width: 500px;
 }
 
+/* footer */
+
+div.footer {
+  clear: both;
+  margin: 20px auto;
+  padding: 10px;
+  border-top: 1px #777 dotted;
+  text-align: center;
+  background-color: #FAFAFA;
+}
+
+.ranking table {  
+  border-collapse: collapse;
+}
+
+.ranking table tr td {
+  
+}
+
+.ranking table tr:nth-child(even) {
+  background-color: #EFEFEF;
+  
+}

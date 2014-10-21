@@ -31,8 +31,10 @@ public class ApplicationConfig extends Application {
   private void addRestResourceClasses(Set<Class<?>> resources) {
     resources.add(com.ehsunbehravesh.varzesh3mobile.service.HTMLWidgetService.class);
     resources.add(com.ehsunbehravesh.varzesh3mobile.service.ImageService.class);
+    resources.add(com.ehsunbehravesh.varzesh3mobile.service.LiveResultsService.class);
     resources.add(com.ehsunbehravesh.varzesh3mobile.service.NewsService.class);
     resources.add(com.ehsunbehravesh.varzesh3mobile.service.NewspaperService.class);
+    resources.add(com.ehsunbehravesh.varzesh3mobile.service.RankingService.class);
   }
   
 }

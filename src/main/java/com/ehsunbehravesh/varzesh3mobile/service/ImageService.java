@@ -254,7 +254,7 @@ public class ImageService {
       if (content != null) {
         if (content.length > 0) {
           final byte[] byteContent = content;
-          
+
           return Response.ok().entity(new StreamingOutput() {
 
             @Override

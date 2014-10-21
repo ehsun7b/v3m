@@ -53,7 +53,7 @@ public class NewsService {
     List<News> newsList = newsBean.footExtNews(limit);
     return newsList;
   }
-  
+
   @GET
   @Path("sports/{limit}")
   @Produces("application/json; charset=UTF-8")

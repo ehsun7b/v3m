@@ -1,5 +1,6 @@
 package com.ehsunbehravesh.varzesh3mobile.entity;
 
+import com.google.common.base.Objects;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.Date;
@@ -79,6 +80,24 @@ public class News implements Serializable {
   public String toString() {
     return MessageFormat.format("{4} Code: {0} - Publish time: {1}\n{2}\n{3}\n\n", code, publishTime, title, abstractText, category);
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof News) {
+      News news1 = (News) obj;
+      return Objects.equal(id, news1.id);
+    } else {
+      return false;
+    }
+  }
+
+  @Override
+  public int hashCode() {
+    Long hash = id != null ? id : -1;
+    return Integer.parseInt(hash.toString());
+  }
+  
+  
   
   public Long getId() {
     return id;
