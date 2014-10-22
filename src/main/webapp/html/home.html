@@ -10,14 +10,14 @@
     </div>
   </a>
 </div>
-<!--
-<div class="hotNewsList" data-ng-repeat="news in footNews">
-  <a href="#news/{{news.id}}">
-    <div class="hotNews2">
-      <div class="hotNewsImage"><img alt="{{news.title}}" src="/service/image/news/main/80/60/{{news.id}}/photo.png" /></div>
-      <div class="hotNewsPreTitle">{{news.preTitle}}</div>
-      <div class="hotNewsTitle">{{news.title}}</div>
-      <div class="hotNewsAbstract">{{news.abstractText}}</div>
+
+<br style="clear: both"/>
+<h2>آخرین ویدئوها</h2>
+<div class="videos" data-ng-repeat="video in videos">
+  <a href="#!/play/{{video.id}}">
+    <div class="video">      
+      <img alt="{{video.description}}" src="{{video.thumbnailURL}}" />
+      <div class="videoTitle">{{video.title}}</div>
     </div>
   </a>
-</div>-->
+</div>

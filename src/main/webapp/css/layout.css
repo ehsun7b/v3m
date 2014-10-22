@@ -336,6 +336,37 @@ div.footer {
 }
 
 .ranking table tr:nth-child(even) {
-  background-color: #EFEFEF;
+  background-color: #EFEFEF; 
+}
+
+
+/* VIDEOS */
+
+div.videos {
+  text-align: center;
+}
+
+div.video {
+  float: right;
+  text-align: center;
+  margin: 20px;
+}
+
+div.video img {
+  width: 200px;
+  border-radius: 20px;
+}
+
+div.video div.videoTitle {
+  font-size: 14px;
+  padding-top: 5px;
+}
+
+video {
+  width: 100%    !important;
+  height: auto   !important;
   
+  max-width: 640px;
+  margin: 0px auto;
+  display: block;
 }

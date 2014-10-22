@@ -34,6 +34,14 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: "html/results.html",
             controller: "ResultsCtrl"
           })
+          .when("/video", {
+            templateUrl: "html/video.html",
+            controller: "VideoCtrl"
+          })
+          .when("/play/:param", {
+            templateUrl: "html/play.html",
+            controller: "PlayCtrl"
+          })
           .otherwise({
             redirectTo: "/"
           });

@@ -2,7 +2,7 @@ app.controller("HomeCtrl", function ($scope, Page, $http) {
   Page.setTitle("ورزش ۳");
 
   $scope.hotNews = [];
-  $scope.footNews = [];
+  $scope.videos = [];
 
   $scope.loadHotNews = function () {
     $http({method: "GET", url: "/service/news/hot"}).
@@ -16,24 +16,14 @@ app.controller("HomeCtrl", function ($scope, Page, $http) {
             });
   };
 
-  $scope.loadFootNews = function () {
-    $http({method: "GET", url: "/service/news/foot/int/10"}).
+  $scope.loadVideos = function () {
+    $http({method: "GET", url: "/service/video/all/10"}).
             success(function (data, status, headers, config) {
-              $scope.footNews = $scope.footNews.concat(data);
+              $scope.videos = data;
               console.log(data);
             }).
             error(function (data, status, headers, config) {
-              console.error("Error in fetching internal football news!");
-              console.log("status: " + status);
-            });
-
-    $http({method: "GET", url: "/service/news/foot/ext/10"}).
-            success(function (data, status, headers, config) {
-              $scope.footNews = $scope.footNews.concat(data);
-              console.log(data);
-            }).
-            error(function (data, status, headers, config) {
-              console.error("Error in fetching external football news!");
+              console.error("Error in fetching Videos!");
               console.log("status: " + status);
             });
   };
@@ -41,5 +31,5 @@ app.controller("HomeCtrl", function ($scope, Page, $http) {
 
 
   $scope.loadHotNews();
-  //$scope.loadFootNews();
+  $scope.loadVideos()
 });

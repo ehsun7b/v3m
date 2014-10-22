@@ -12,8 +12,9 @@
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css">
     <link rel="stylesheet" href="css/layout.css">
-    
+
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
   </head>
   <body class="nasim">
     <div id="wrapper" data-ng-controller="MenuCtrl" class="{{showClass}}">      
@@ -42,6 +43,10 @@
           <li>
             <a href="#!tv" data-ng-click="toggle()">جدول پخش ورزش از تلویزیون</a>
           </li>
+          <!--
+          <li>
+            <a href="#!video" data-ng-click="toggle()">ویدئو</a>
+          </li>-->
         </ul>
       </div>
       <!-- /#sidebar-wrapper -->
@@ -61,7 +66,7 @@
     </div>
     <!-- /#wrapper -->
 
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>    
     <script src="/js/app.js"></script>
     <script src="/js/services/Page.js"></script>
@@ -75,6 +80,7 @@
     <script src="/js/controllers/NewspapersCtrl.js"></script>
     <script src="/js/controllers/TVCtrl.js"></script>
     <script src="/js/controllers/ResultsCtrl.js"></script>
+    <script src="/js/controllers/PlayCtrl.js"></script>
     <script src="/js/directives/fbLike.js"></script>
     <script src="/js/directives/googlePlus.js"></script>
 
