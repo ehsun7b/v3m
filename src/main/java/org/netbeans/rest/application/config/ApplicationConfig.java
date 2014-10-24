@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
    * If required, comment out calling this method in getClasses().
    */
   private void addRestResourceClasses(Set<Class<?>> resources) {
+    resources.add(com.ehsunbehravesh.varzesh3mobile.service.CommonService.class);
     resources.add(com.ehsunbehravesh.varzesh3mobile.service.HTMLWidgetService.class);
     resources.add(com.ehsunbehravesh.varzesh3mobile.service.ImageService.class);
     resources.add(com.ehsunbehravesh.varzesh3mobile.service.LiveResultsService.class);

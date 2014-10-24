@@ -27,7 +27,7 @@ public class FetchVideoBean implements FetchVideoBeanLocal {
   @Inject
   private VideoBeanLocal videoBean;
 
-  @Schedule(hour = "*", minute = "*/1", persistent = false)
+  @Schedule(hour = "*", minute = "*/40", persistent = false)
   @Override
   public void fetchVideos() {
     Logger.getLogger(FetchVideoBean.class.getName()).log(Level.INFO, "Fetching videos ...");

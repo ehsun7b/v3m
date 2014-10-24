@@ -1,7 +1,9 @@
 package com.ehsunbehravesh.varzesh3mobile.servlet;
 
 import com.ehsunbehravesh.varzesh3mobile.bean.NewsBeanLocal;
+import com.ehsunbehravesh.varzesh3mobile.bean.VideoBeanLocal;
 import com.ehsunbehravesh.varzesh3mobile.entity.News;
+import com.ehsunbehravesh.varzesh3mobile.entity.Video;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
@@ -17,6 +19,9 @@ public class HTMLSnapshotServlet extends HttpServlet {
 
   @Inject
   private NewsBeanLocal newsBean;
+
+  @Inject
+  private VideoBeanLocal videoBean;
 
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -73,6 +78,7 @@ public class HTMLSnapshotServlet extends HttpServlet {
     String appId = "623178241126464";
 
     News news = null;
+    Video video = null;
 
     if ((hashParameters == null) || (hashParameters.trim().length() <= 0)) {
       title = "ورزش ۳ | نسخه موبایل";
@@ -119,13 +125,37 @@ public class HTMLSnapshotServlet extends HttpServlet {
         }
 
         Long id = Long.parseLong(parts[i]);
-        news = this.newsBean.findById(id);
+        news = newsBean.findById(id);
 
         if (news != null) {
           title = news.getTitle();
           url = "http://varzesh3mob.com/#!/news/" + news.getId();
           description = news.getAbstractText();
           image = "http://varzesh3mob.com/service/image/news/main/250/250/" + news.getId() + "/photo.png";
+        }
+      }
+    } else if (hashParameters.trim().startsWith("/play")) {
+      String[] parts = hashParameters.trim().split("/");
+
+      if (parts.length > 2) {
+        int i = 0;
+
+        for (; i < parts.length; i++) {
+          String part = parts[i];
+          if (part.equalsIgnoreCase("play")) {
+            i++;
+            break;
+          }
+        }
+
+        Long id = Long.parseLong(parts[i]);
+        video = videoBean.findByID(id);
+
+        if (video != null) {
+          title = "ویدئو: " + video.getTitle();
+          url = "http://varzesh3mob.com/#!/play/" + video.getId();
+          description = video.getDescription();
+          image = video.getThumbnailURL();
         }
       }
     }
@@ -137,6 +167,18 @@ public class HTMLSnapshotServlet extends HttpServlet {
     out.println(MessageFormat.format(template, new Object[]{"og:url", url}));
     out.println(MessageFormat.format(template, new Object[]{"og:description", description}));
     out.println(MessageFormat.format(template, new Object[]{"og:image", image}));
+
+    if (video != null) {
+      out.println(MessageFormat.format(template, new Object[]{"og:video", video.getContentURL()}));
+      out.println(MessageFormat.format(template, new Object[]{"og:video:height", video.getHeight()}));
+      out.println(MessageFormat.format(template, new Object[]{"og:video:width", video.getWidth()}));
+      out.println(MessageFormat.format(template, new Object[]{"og:video:type", "video/mp4"}));
+      
+      out.println(MessageFormat.format(template, new Object[]{"thumbnailURL", video.getThumbnailURL()}));
+      out.println(MessageFormat.format(template, new Object[]{"contentURL", video.getContentURL()}));
+      out.println(MessageFormat.format(template, new Object[]{"width", video.getWidth()}));
+      out.println(MessageFormat.format(template, new Object[]{"height", video.getHeight()}));
+    }
 
     out.println(MessageFormat.format(template, new Object[]{"fb:app_id", appId}));
 
