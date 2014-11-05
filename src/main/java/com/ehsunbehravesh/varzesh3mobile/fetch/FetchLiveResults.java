@@ -16,11 +16,15 @@ public class FetchLiveResults {
 
   public String fetchHTML() throws Exception {
     Document doc = Jsoup.parse(new URL(URL).openStream(), "UTF-8", URL);
-    Element table = doc.select("div#main").get(0).select("table").get(0);
+    Elements tables = doc.select("div#main").get(0).select("table");
 
-    String html = clean(table);
-
-    return html;
+    StringBuilder html = new StringBuilder();
+    
+    for (Element table : tables) {
+      html.append(clean(table));
+    }
+    
+    return html.toString();
   }
 
   private String clean(Element table) {
@@ -52,4 +56,9 @@ public class FetchLiveResults {
     return table.outerHtml();
   }
 
+  
+  public static void main(String[] args) throws Exception {
+    String html = new FetchLiveResults().fetchHTML();
+    System.out.println(html);
+  }
 }

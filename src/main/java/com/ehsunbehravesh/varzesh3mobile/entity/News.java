@@ -78,7 +78,7 @@ public class News implements Serializable {
   
   @Override
   public String toString() {
-    return MessageFormat.format("{4} Code: {0} - Publish time: {1}\n{2}\n{3}\n\n", code, publishTime, title, abstractText, category);
+    return MessageFormat.format("{4} Code: {0} - Publish time: {1}\n{2}\n{3}\n{4}\n\n", code, publishTime, title, abstractText, category, mainText);
   }
 
   @Override
