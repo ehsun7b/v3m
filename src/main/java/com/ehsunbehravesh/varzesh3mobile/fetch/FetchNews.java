@@ -92,10 +92,9 @@ public class FetchNews {
       imageMain.setOriginalURL(imgUrl);
       imageMain.setText(imgText);
     } else { // it's an photo news
-      if (font != null) {
-        div = font.select("div").get(0);
-        Elements imgs = div.select("img");
-
+      if (mainText != null) {
+        Document mainTextElement = Jsoup.parse(mainText);
+        Elements imgs = mainTextElement.select("img");
         if (imgs.size() > 0) {
           Element imgMain = imgs.get(0);
           imgUrl = imgMain.absUrl("src");
@@ -112,5 +111,15 @@ public class FetchNews {
     }
 
     return result;
+  }
+  
+  public static void main(String[] args) {
+    try {
+      FetchNews f = new FetchNews();
+      News news = f.fetch("http://www.varzesh3.com/news.do?itemid=1183080&title=%D9%85%D9%87%D9%85%D8%A7%D9%86%D9%8A_%D8%AE%D9%8A%D8%B1%D9%8A%D9%87_%D8%B3%D8%AA%D8%A7%D8%B1%D9%87_%D9%87%D8%A7%D9%8A_%D9%8A%D9%88%D9%86%D8%A7%D9%8A%D8%AA%D8%AF_(%D8%B9%DA%A9%D8%B3)", "");
+      System.out.println(news.getMainImage().getOriginalURL());
+    } catch (IOException ex) {
+      Logger.getLogger(FetchNews.class.getName()).log(Level.SEVERE, null, ex);
+    }
   }
 }

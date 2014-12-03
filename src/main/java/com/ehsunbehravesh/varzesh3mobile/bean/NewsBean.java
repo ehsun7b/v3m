@@ -46,9 +46,11 @@ public class NewsBean implements NewsBeanLocal {
 
   @Override
   public List<News> hotNews() {
-    String sql = "SELECT n FROM News n WHERE n.hot = :hot ORDER BY n.id DESC";
+    //String sql = "SELECT n FROM News n WHERE n.hot = :hot ORDER BY n.id DESC";
+    String sql = "SELECT n FROM News n ORDER BY n.id DESC";
     TypedQuery<News> query = em.createQuery(sql, News.class);
-    query.setParameter("hot", Boolean.TRUE);
+    //query.setParameter("hot", Boolean.TRUE);
+    query.setMaxResults(10);
     List<News> result = query.getResultList();
 
     return result;

@@ -1,12 +1,17 @@
 package com.ehsunbehravesh.varzesh3mobile.servlet;
 
 import com.ehsunbehravesh.varzesh3mobile.bean.NewsBeanLocal;
+import com.ehsunbehravesh.varzesh3mobile.bean.NewspaperBeanLocal;
 import com.ehsunbehravesh.varzesh3mobile.bean.VideoBeanLocal;
 import com.ehsunbehravesh.varzesh3mobile.entity.News;
+import com.ehsunbehravesh.varzesh3mobile.entity.NewspaperCollection;
+import com.ehsunbehravesh.varzesh3mobile.entity.NewspaperPage;
 import com.ehsunbehravesh.varzesh3mobile.entity.Video;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +27,9 @@ public class HTMLSnapshotServlet extends HttpServlet {
 
   @Inject
   private VideoBeanLocal videoBean;
+
+  @Inject
+  private NewspaperBeanLocal newspaperBean;
 
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -101,6 +109,19 @@ public class HTMLSnapshotServlet extends HttpServlet {
       url = "http://varzesh3mob.com/#!/newspapers";
       description = "صفحه اول روزنامه‌های ورزشی ایران";
       image = "http://varzesh3mob.com/img/newspapers.png";
+
+      try {
+        NewspaperCollection lastNewspaper = newspaperBean.lastNewspaper();
+        NewspaperPage page = lastNewspaper.getNewspapers().get(0);
+        Long id = page.getId();
+        
+        if (id != null && id < 0) {
+          image = "http://varzesh3mob.com/service/image/newspaper/" + id + "/photo.png";          
+        }
+      } catch (Exception ex) {
+        Logger.getLogger(HTMLSnapshotServlet.class.getName()).log(Level.SEVERE, "Error in fetching the last newspaper! ".concat(ex.getMessage()));
+      }
+
     } else if (hashParameters.trim().equalsIgnoreCase("/results")) {
       title = "نتایج زنده و جدول لیگ برتر";
       url = "http://varzesh3mob.com/#!/results";
@@ -152,7 +173,7 @@ public class HTMLSnapshotServlet extends HttpServlet {
         video = videoBean.findByID(id);
 
         if (video != null) {
-          title = "ویدئو: " + video.getTitle();
+          title = video.getTitle() + " (ویدئو)";
           url = "http://varzesh3mob.com/#!/play/" + video.getId();
           description = video.getDescription();
           image = video.getThumbnailURL();
@@ -173,7 +194,7 @@ public class HTMLSnapshotServlet extends HttpServlet {
       out.println(MessageFormat.format(template, new Object[]{"og:video:height", video.getHeight()}));
       out.println(MessageFormat.format(template, new Object[]{"og:video:width", video.getWidth()}));
       out.println(MessageFormat.format(template, new Object[]{"og:video:type", "video/mp4"}));
-      
+
       out.println(MessageFormat.format(template, new Object[]{"thumbnailURL", video.getThumbnailURL()}));
       out.println(MessageFormat.format(template, new Object[]{"contentURL", video.getContentURL()}));
       out.println(MessageFormat.format(template, new Object[]{"width", video.getWidth()}));

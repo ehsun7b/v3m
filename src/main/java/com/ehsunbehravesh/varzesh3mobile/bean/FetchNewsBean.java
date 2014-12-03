@@ -133,7 +133,7 @@ public class FetchNewsBean implements FetchNewsBeanLocal {
     }
   }
 
-  @Schedule(hour = "*", minute = "8/10", persistent = false)
+  //@Schedule(hour = "*", minute = "8/10", persistent = false)
   @Override
   public void fetchHotNes() {
     Logger.getLogger(FetchNewsBean.class.getName()).log(Level.INFO, "Fetching hot news...");
