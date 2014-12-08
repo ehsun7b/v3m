@@ -1,21 +1,39 @@
-app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams) {
+app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams, Database) {
   var newsId = $routeParams.param;
-  console.info(newsId);
+  //console.info("news id: " + newsId);
 
   $scope.news;
 
   $scope.loadNews = function () {
-    $http({method: "GET", url: "/service/news/" + newsId}).
-            success(function (data, status, headers, config) {
-              $scope.news = data;
-              console.log(data);
-              Page.setTitle($scope.news.title);
-              $scope.news.mainText = $scope.process($scope.news.mainText);
-            }).
-            error(function (data, status, headers, config) {
-              console.error("Error in fetching news!");
-              console.log("status: " + status);
-            });
+
+    function getFromServer() {
+      $http({method: "GET", url: "/service/news/" + newsId}).
+              success(function (data, status, headers, config) {
+                $scope.news = data;
+                //console.log(data);
+                Page.setTitle($scope.news.title);
+                $scope.news.mainText = $scope.process($scope.news.mainText);
+              }).
+              error(function (data, status, headers, config) {
+                console.error("Error in fetching news!");
+                console.error("status: " + status);
+              });
+    }
+
+    var promise = Database.loadNews(newsId);
+    promise.then(function (news) {
+      if (news) {
+        $scope.news = news;
+        $scope.news.mainText = $scope.process($scope.news.mainText);
+      } else {
+        getFromServer();
+      }
+      //console.info(news);
+    }, function (reason) {
+      console.log("Loading news failed! id: " + newsId);
+      console.log(reason);
+      getFromServer();
+    });
   };
 
   $scope.back = function () {
@@ -74,20 +92,20 @@ app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams) {
         } else if (tagName === "img") {
           n.setAttribute("class", "newsContentImage");
           var w = n.getAttribute("width");
-          var h = n.getAttribute("height");                    
-          
+          var h = n.getAttribute("height");
+
           n.removeAttribute("width");
           n.removeAttribute("height");
-          
+
           var styleString = "";
           if ((w !== undefined && w !== null)) {
             styleString += "max-width: " + w + "px;";
           }
-          
+
           if ((h !== undefined && h !== null)) {
             styleString += "max-height: " + h + "px;";
           }
-          
+
           if (styleString.length > 0) {
             n.setAttribute("style", styleString);
           }

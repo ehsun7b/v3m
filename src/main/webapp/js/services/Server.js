@@ -1,7 +1,6 @@
 app.factory("Server", ["$http", "Database", function ($http, Database) {
     var count = 10;
 
-
     return {
       loadNews: function () {
         $http({method: "GET", url: "/service/news/foot/ext/" + count}).
@@ -17,7 +16,7 @@ app.factory("Server", ["$http", "Database", function ($http, Database) {
                 error(this.onError);
       },
       onSuccess: function (data, status, headers, config) {
-        console.log(data);
+        //console.log(data);
         var len = data.length;
 
         Database.saveNewsList(data);

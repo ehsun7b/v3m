@@ -1,6 +1,8 @@
-app.controller("MainCtrl", function ($scope, Page, $http, $window) {
+app.controller("MainCtrl", function ($scope, Page, $http, $window, Server) {
   $scope.Page = Page;
   $scope.mobile = true;
+
+  Server.loadNews();
 
   fixMenuHeight();
   window.addEventListener("resize", fixMenuHeight);
@@ -9,7 +11,7 @@ app.controller("MainCtrl", function ($scope, Page, $http, $window) {
     $http({method: "GET", url: "/service/common/mobile"}).
             success(function (data, status, headers, config) {
               $scope.mobile = data.result;
-              console.log(data);
+              //console.log(data);
             }).
             error(function (data, status, headers, config) {
               console.error("Error in checking is mobile!");

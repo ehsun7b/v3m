@@ -4,39 +4,22 @@ app.controller("HomeCtrl", function ($scope, Page, $http, Server, Database) {
   $scope.hotNews = [];
   $scope.videos = [];
 
-  Server.loadNews();
-
   $scope.loadHotNews = function () {
-    /*
-     $http({method: "GET", url: "/service/news/hot"}).
-     success(function (data, status, headers, config) {
-     $scope.hotNews = data;
-     console.log(data);
-     }).
-     error(function (data, status, headers, config) {
-     console.error("Error in fetching hot news!");
-     console.log("status: " + status);
-     });*/
-
-    if (Database.isReady()) {
+    function load() {
       var promise = Database.loadLatestNews(10);
       promise.then(function (news) {
-        console.log(news);
         $scope.hotNews = news;
       }, function (reason) {
         console.log("Loading latest news failed!");
         console.log(reason);
       });
+    }
+
+    if (Database.isReady()) {
+      load();
     } else {
       setTimeout(function () {
-        var promise = Database.loadLatestNews(10);
-        promise.then(function (news) {
-          console.log(news);
-          $scope.hotNews = news;
-        }, function (reason) {
-          console.log("Loading latest news failed!");
-          console.log(reason);
-        });
+        load();
       }, 1000);
     }
   };

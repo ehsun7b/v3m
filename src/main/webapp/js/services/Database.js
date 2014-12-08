@@ -1,19 +1,7 @@
 app.factory("Database", ["$q", function ($q) {
     var instance = {
-      dbVersion: 10,
-      dbName: "varzesh3mob.com",
-      db: null
-    };
-
-    instance.onOpenSuccess = function (event) {
-      console.log("IndexedDb opened success.");
-      this.db = event.target.result;
-      console.log(this);
-    };
-
-    instance.onError = function (event) {
-      console.log("Error in database!!!");
-      console.log(event);
+      dbVersion: 15,
+      dbName: "varzesh3mob.com"
     };
 
     instance.onUpgrade = function (event) {
@@ -25,62 +13,150 @@ app.factory("Database", ["$q", function ($q) {
       }
 
       var objectStore = this.db.createObjectStore("news", {keyPath: "id"});
-      //objectStore.createIndex("id", "id", { unique: true });
+      objectStore.createIndex("category", "category", {unique: false});
     };
 
-    console.log("requesting ...");
-    var request = window.indexedDB.open(instance.dbName, instance.dbVersion);
-
-    request.onerror = instance.onError;
-    request.onsuccess = instance.onOpenSuccess.bind(instance);
-    request.onupgradeneeded = instance.onUpgrade;
-
-    instance.saveNewsList = function (newsList) {
-      console.log("saving news ...");
-      if (this.db !== null) {
-        console.log(this.db);
-        var transaction = this.db.transaction(["news"], "readwrite");
-        var objectStore = transaction.objectStore("news");
-
-        var len = newsList.length;
-        for (var i = 0; i < len; ++i) {
-          var news = newsList[i];
-          objectStore.add(news);
-        }
-      } else {
-        console.log("Database is not opened yet. Retry in 5 seconds");
-        setTimeout(function () {
-          console.log("retry!");
-          this.saveNewsList(newsList);
-        }.bind(this), 5000);
-      }
-    };
-
-    instance.loadLatestNews = function (top) {
-      console.log("loading latest news ...");
+    instance.open = function () {
+      console.info("Opening database.");
       var deferred = $q.defer();
 
-      var transaction = this.db.transaction(["news"], "readonly");
-      var objectStore = transaction.objectStore("news");
+      var request = window.indexedDB.open(this.dbName, this.dbVersion);
 
-      var news = [];
-      var request = objectStore.openCursor(null, "prev");
-      //var index = objectStore.index("id");
-      //var request = index.openCursor();
+      request.onupgradeneeded = this.onUpgrade;
+
       request.onsuccess = function (event) {
-        var cursor = event.target.result;
-        
-        if (cursor) {
-          news.push(cursor.value);
-          cursor.continue();
-        } else {
-          deferred.resolve(news);
-        }
+        deferred.resolve(event.target.result);
       };
 
       request.onerror = function (event) {
-        deferred.reject(event);
+        deferred.reject(event.target.result);
       };
+
+      return deferred.promise;
+    };
+
+    instance.saveNewsList = function (newsList) {
+      console.info("saving news ...");
+      var promise = this.open();
+
+      promise.then(function (db) {
+        var transaction = db.transaction(["news"], "readwrite");
+        var objectStore = transaction.objectStore("news");
+
+        var len = newsList.length;
+
+        for (var i = 0; i < len; ++i) {
+          var news = newsList[i];
+          var request = objectStore.add(news);
+          request.onerror = function (event) {
+            //console.error("News save failed!");
+            //console.error(event);
+          };
+        }
+      }, function (event) {
+        console.error(event);
+      });
+    };
+
+    instance.loadLatestNews = function (top) {
+      console.info("loading latest news ...");
+      var deferred = $q.defer();
+
+      var promise = this.open();
+
+      promise.then(function (db) {
+
+        var transaction = db.transaction(["news"], "readonly");
+        var objectStore = transaction.objectStore("news");
+
+        var news = [];
+        var request = objectStore.openCursor(null, "prev"); // 'prev' is for descening order
+        var i = 0;
+
+        request.onsuccess = function (event) {          
+          var cursor = event.target.result;
+
+          if (cursor && i < top) {
+            i++;
+            news.push(cursor.value);
+            cursor.continue();
+          } else {
+            deferred.resolve(news);
+          }
+        };
+
+        request.onerror = function (event) {
+          deferred.reject(event);
+        };
+      }, function (event) {
+        deferred.reject(event);
+      });
+
+      return deferred.promise;
+    };
+
+    instance.loadLatestNewsByCategory = function (top, category) {
+      console.info("loading latest news of " + category);
+      var deferred = $q.defer();
+
+      var promise = this.open();
+
+      promise.then(function (db) {
+        var transaction = db.transaction(["news"], "readonly");
+        var objectStore = transaction.objectStore("news");
+
+        var news = [];
+        var index = objectStore.index("category");
+        var range = IDBKeyRange.only(category);
+        var request = index.openCursor(range, "prev");
+
+        var i = 0;
+
+        request.onsuccess = function (event) {
+          var cursor = event.target.result;
+
+          if (cursor && i < top) {
+            i++;
+            news.push(cursor.value);
+            cursor.continue();
+          } else {
+            deferred.resolve(news);
+          }
+        };
+
+        request.onerror = function (event) {
+          deferred.reject(event);
+        };
+      }, function (event) {
+        deferred.reject(event);
+      });
+
+
+      return deferred.promise;
+    };
+
+
+    instance.loadNews = function (id) {
+      //console.info("loading news " + id);
+      var deferred = $q.defer();
+
+      var promise = this.open();
+
+      promise.then(function (db) {
+        var transaction = db.transaction(["news"], "readonly");
+        var objectStore = transaction.objectStore("news");        
+        var request = objectStore.get(parseInt(id));
+
+        request.onsuccess = function (event) {          
+          deferred.resolve(event.target.result);
+        };
+
+        request.onerror = function (event) {          
+          deferred.reject(event);
+        };
+      }, function (event) {
+        deferred.reject(event);
+      });
 
       return deferred.promise;
     };
