@@ -1,5 +1,5 @@
 app.factory("Server", ["$http", "Database", function ($http, Database) {
-    var count = 10;
+    var count = 30;
 
     return {
       loadNews: function () {
@@ -16,9 +16,7 @@ app.factory("Server", ["$http", "Database", function ($http, Database) {
                 error(this.onError);
       },
       onSuccess: function (data, status, headers, config) {
-        //console.log(data);
-        var len = data.length;
-
+        //console.log(data);        
         Database.saveNewsList(data);
       },
       onError: function (data, status, headers, config) {

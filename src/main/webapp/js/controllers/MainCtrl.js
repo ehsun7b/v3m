@@ -1,11 +1,12 @@
-app.controller("MainCtrl", function ($scope, Page, $http, $window, Server) {
+app.controller("MainCtrl", function ($scope, Page, $http, $window, Server, $timeout, Database) {
   $scope.Page = Page;
   $scope.mobile = true;
-
-  Server.loadNews();
-
+  $scope.loadNewsInterval = 1000 * 60 * 5; // 5 minutes
+  
   fixMenuHeight();
   window.addEventListener("resize", fixMenuHeight);
+  
+  Database.clear();
 
   $scope.isMobile = function () {
     $http({method: "GET", url: "/service/common/mobile"}).
@@ -22,6 +23,13 @@ app.controller("MainCtrl", function ($scope, Page, $http, $window, Server) {
   $scope.showDesktop = function() {
     $window.location.href = 'http://www.varzesh3.com';
   };
+  
+  $scope.loadNewsRepeat = function() {
+    Server.loadNews();
+    $timeout($scope.loadNewsRepeat, $scope.loadNewsInterval);
+  };
+  
+  $scope.loadNewsRepeat();
   
   $scope.isMobile();
 });

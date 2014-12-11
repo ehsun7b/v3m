@@ -1,27 +1,39 @@
 app.controller("HomeCtrl", function ($scope, Page, $http, Server, Database) {
   Page.setTitle("ورزش ۳");
 
+  $scope.count = 20;
   $scope.hotNews = [];
   $scope.videos = [];
 
   $scope.loadHotNews = function () {
-    function load() {
-      var promise = Database.loadLatestNews(10);
-      promise.then(function (news) {
-        $scope.hotNews = news;
-      }, function (reason) {
-        console.log("Loading latest news failed!");
-        console.log(reason);
-      });
+    console.info("loading latest news.");
+    
+    function getFromServer() {
+      console.info("getting latest news from server.");
+      $http({method: "GET", url: "/service/news/hot"}).
+              success(function (data, status, headers, config) {
+                $scope.hotNews = data;
+                console.log(data);
+              }).
+              error(function (data, status, headers, config) {
+                console.error("Error in fetching latest news!");
+                console.log("status: " + status);
+              });
     }
+        
+    var promise = Database.loadLatestNews($scope.count);
 
-    if (Database.isReady()) {
-      load();
-    } else {
-      setTimeout(function () {
-        load();
-      }, 1000);
-    }
+    promise.then(function (newsList) {
+      if (newsList && newsList.length > 0) {
+        $scope.hotNews = newsList;
+      } else {
+        getFromServer();
+      }
+    }, function (event) {
+      console.error("loading latest news failed.");
+      console.error(event);
+      getFromServer();
+    });
   };
 
   $scope.loadVideos = function () {

@@ -47,10 +47,14 @@ app.factory("Database", ["$q", function ($q) {
 
         for (var i = 0; i < len; ++i) {
           var news = newsList[i];
+          
+          //console.log(news);
+          
           var request = objectStore.add(news);
           request.onerror = function (event) {
-            //console.error("News save failed!");
-            //console.error(event);
+            console.log(event);
+            var error = event.target.transaction.error;                                    
+            console.error(error);            
           };
         }
       }, function (event) {
@@ -73,7 +77,7 @@ app.factory("Database", ["$q", function ($q) {
         var request = objectStore.openCursor(null, "prev"); // 'prev' is for descening order
         var i = 0;
 
-        request.onsuccess = function (event) {          
+        request.onsuccess = function (event) {
           var cursor = event.target.result;
 
           if (cursor && i < top) {
@@ -144,14 +148,14 @@ app.factory("Database", ["$q", function ($q) {
 
       promise.then(function (db) {
         var transaction = db.transaction(["news"], "readonly");
-        var objectStore = transaction.objectStore("news");        
+        var objectStore = transaction.objectStore("news");
         var request = objectStore.get(parseInt(id));
 
-        request.onsuccess = function (event) {          
+        request.onsuccess = function (event) {
           deferred.resolve(event.target.result);
         };
 
-        request.onerror = function (event) {          
+        request.onerror = function (event) {
           deferred.reject(event);
         };
       }, function (event) {
@@ -159,6 +163,29 @@ app.factory("Database", ["$q", function ($q) {
       });
 
       return deferred.promise;
+    };
+
+    instance.clear = function () {
+      console.warn("clearing database.");
+
+      var promise = this.open();
+
+      promise.then(function (db) {
+        var transaction = db.transaction(["news"], "readwrite");
+        var objectStore = transaction.objectStore("news");
+
+        var request = objectStore.clear();
+
+        request.onsuccess = function (event) {
+          console.info("database cleared.");
+        };
+
+        request.onerror = function (event) {
+          console.error(event);
+        };
+      }, function (event) {
+        console.error(event);
+      });
     };
 
     instance.isReady = function () {
