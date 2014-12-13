@@ -1,4 +1,4 @@
-app.controller("HomeCtrl", function ($scope, Page, $http, Server, Database) {
+app.controller("HomeCtrl", function ($scope, Page, $http, Database) {
   Page.setTitle("ورزش ۳");
 
   $scope.count = 20;
@@ -7,20 +7,20 @@ app.controller("HomeCtrl", function ($scope, Page, $http, Server, Database) {
 
   $scope.loadHotNews = function () {
     console.info("loading latest news.");
-    
+
     function getFromServer() {
       console.info("getting latest news from server.");
-      $http({method: "GET", url: "/service/news/hot"}).
+      $http({method: "GET", url: "/service/news/hot/" + $scope.count}).
               success(function (data, status, headers, config) {
                 $scope.hotNews = data;
-                console.log(data);
+                //console.log(data);
               }).
               error(function (data, status, headers, config) {
                 console.error("Error in fetching latest news!");
                 console.log("status: " + status);
               });
     }
-        
+
     var promise = Database.loadLatestNews($scope.count);
 
     promise.then(function (newsList) {
@@ -40,7 +40,7 @@ app.controller("HomeCtrl", function ($scope, Page, $http, Server, Database) {
     $http({method: "GET", url: "/service/video/all/10"}).
             success(function (data, status, headers, config) {
               $scope.videos = data;
-              console.log(data);
+              //console.log(data);
             }).
             error(function (data, status, headers, config) {
               console.error("Error in fetching Videos!");
@@ -48,7 +48,11 @@ app.controller("HomeCtrl", function ($scope, Page, $http, Server, Database) {
             });
   };
 
-
+  $scope.$on("newsReceived", function(event) {
+    console.info("event newsReceived handled");
+    //console.info(event);
+    $scope.loadHotNews();
+  });
 
   $scope.loadHotNews();
   $scope.loadVideos();

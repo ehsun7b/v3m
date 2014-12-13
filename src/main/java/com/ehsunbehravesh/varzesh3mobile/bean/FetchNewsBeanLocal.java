@@ -17,6 +17,6 @@ public interface FetchNewsBeanLocal {
 
   void fetchImagesContent();
 
-  public void fetchHotNes();
+  //public void fetchHotNes();
   
 }

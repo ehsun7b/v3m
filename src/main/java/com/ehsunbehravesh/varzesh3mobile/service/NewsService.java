@@ -22,10 +22,10 @@ public class NewsService {
   private NewsBeanLocal newsBean;
 
   @GET
-  @Path("hot")
+  @Path("hot/{limit}")
   @Produces("application/json; charset=UTF-8")
-  public List<News> hotNews() {
-    List<News> hotNews = newsBean.hotNews();
+  public List<News> hotNews(@PathParam("limit") int limit) {
+    List<News> hotNews = newsBean.hotNews(limit);
     return hotNews;
   }
 

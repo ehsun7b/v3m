@@ -52,10 +52,30 @@ app.config(function ($routeProvider, $locationProvider) {
 
 });
 
-app.run([
-  '$rootScope', function ($rootScope) {
-    $rootScope.facebookAppId = '623178241126464';
-  }
-]);
+app.run(function ($rootScope, $interval) {
+  console.log("app run");
+
+  $rootScope.facebookAppId = '623178241126464';
+  $rootScope.lastInsert = 0;
+  $rootScope.lastLoad = 0;
+
+
+  $interval(function() {
+    $rootScope.checkNews();
+  }, 5000);
+  
+  $rootScope.checkNews = function() {
+    //console.info("checking news ...");
+    //console.info("insert: " + $rootScope.lastInsert + " load: " + $rootScope.lastLoad);
+    if ($rootScope.lastInsert > $rootScope.lastLoad) {
+      //console.info("event newsReceived fired");
+      $rootScope.$broadcast("newsReceived");
+    }
+  };
+  
+  $rootScope.welcome = function() {
+    console.log("welcome haha");
+  };  
+});
 
 

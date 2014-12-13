@@ -1,5 +1,5 @@
 app.factory("Server", ["$http", "Database", function ($http, Database) {
-    var count = 30;
+    var count = 50;
 
     return {
       loadNews: function () {

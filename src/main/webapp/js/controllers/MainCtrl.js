@@ -1,12 +1,10 @@
-app.controller("MainCtrl", function ($scope, Page, $http, $window, Server, $timeout, Database) {
+app.controller("MainCtrl", function ($scope, Page, $http, $window, Server, $timeout) {
   $scope.Page = Page;
-  $scope.mobile = true;
-  $scope.loadNewsInterval = 1000 * 60 * 5; // 5 minutes
+  $scope.mobile = true;  
+  $scope.loadNewsInterval = 1000 * 60 * 1; // 5 minutes
   
   fixMenuHeight();
   window.addEventListener("resize", fixMenuHeight);
-  
-  Database.clear();
 
   $scope.isMobile = function () {
     $http({method: "GET", url: "/service/common/mobile"}).

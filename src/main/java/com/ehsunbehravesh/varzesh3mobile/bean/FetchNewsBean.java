@@ -134,6 +134,7 @@ public class FetchNewsBean implements FetchNewsBeanLocal {
   }
 
   //@Schedule(hour = "*", minute = "8/10", persistent = false)
+  /*
   @Override
   public void fetchHotNes() {
     Logger.getLogger(FetchNewsBean.class.getName()).log(Level.INFO, "Fetching hot news...");
@@ -183,7 +184,7 @@ public class FetchNewsBean implements FetchNewsBeanLocal {
     } catch (IOException ex) {
       Logger.getLogger(FetchNewsBean.class.getName()).log(Level.SEVERE, ex.getMessage());
     }
-  }
+  }*/
 
   @Schedule(hour = "*", minute = "10/15", persistent = false)
   @Override

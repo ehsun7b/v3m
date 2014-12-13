@@ -17,7 +17,7 @@ public interface NewsBeanLocal {
 
   void updateNews(News news);
 
-  List<News> hotNews();
+  List<News> hotNews(int limit);
 
   News findById(final Long id);
 
