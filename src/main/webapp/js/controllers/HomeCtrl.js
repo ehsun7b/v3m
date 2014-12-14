@@ -50,8 +50,9 @@ app.controller("HomeCtrl", function ($scope, Page, $http, Database) {
 
   $scope.$on("newsReceived", function(event) {
     console.info("event newsReceived handled");
-    //console.info(event);
+    //console.info(event);    
     $scope.loadHotNews();
+    angular.element("#sndDing")[0].play();
   });
 
   $scope.loadHotNews();
