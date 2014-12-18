@@ -19,7 +19,7 @@ import org.jsoup.select.Elements;
 public class FetchNews {
 
   private static final String codeTitle = "کد خبر:";
-  private static final String timeTitle = "زمان ارسال:";
+  private static final String timeTitle = "زمان:";
   private static final String visitsTitle = "تعداد بازدید:";
 
   public News fetch(String url, String category) throws IOException {
@@ -34,6 +34,7 @@ public class FetchNews {
     Element td1 = tr1.select("td").get(0);
     Element fontDate = td1.select("font").get(0);
     String text = fontDate.text();
+    System.out.println(text);
     String code = text.substring(text.indexOf(codeTitle) + codeTitle.length(), text.indexOf(timeTitle)).trim();
     String publishTime = text.substring(text.indexOf(timeTitle) + timeTitle.length(), text.indexOf(visitsTitle)).trim();
 
@@ -115,8 +116,10 @@ public class FetchNews {
   
   public static void main(String[] args) {
     try {
+      String url = "http://www.varzesh3.com/news.do?itemid=1191887&title=%D9%86%D9%8A%D9%84%D8%B3%D9%88%D9%86:-%D9%81%D9%88%D8%AA%D8%A8%D8%A7%D9%84%D9%85-%D8%B1%D8%A7-%D8%AF%D8%B1-%D8%A7%D9%8A%D8%B1%D8%A7%D9%86-%D8%A7%D8%AF%D8%A7%D9%85%D9%87-%D8%AE%D9%88%D8%A7%D9%87%D9%85-%D8%AF%D8%A7%D8%AF";
       FetchNews f = new FetchNews();
-      News news = f.fetch("http://www.varzesh3.com/news.do?itemid=1183080&title=%D9%85%D9%87%D9%85%D8%A7%D9%86%D9%8A_%D8%AE%D9%8A%D8%B1%D9%8A%D9%87_%D8%B3%D8%AA%D8%A7%D8%B1%D9%87_%D9%87%D8%A7%D9%8A_%D9%8A%D9%88%D9%86%D8%A7%D9%8A%D8%AA%D8%AF_(%D8%B9%DA%A9%D8%B3)", "");
+      News news = f.fetch(url, "");
+      System.out.println("title: " + news.getTitle());
       System.out.println(news.getMainImage().getOriginalURL());
     } catch (IOException ex) {
       Logger.getLogger(FetchNews.class.getName()).log(Level.SEVERE, null, ex);

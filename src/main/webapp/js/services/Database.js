@@ -88,7 +88,7 @@ app.factory("Database", function ($rootScope, $q) {
         if (cursor && i < top) {
           i++;
           news.push(cursor.value);
-          cursor.continue();
+          cursor['continue']();
         } else {
           deferred.resolve(news);
           $rootScope.lastLoad = new Date().getTime();
@@ -128,7 +128,7 @@ app.factory("Database", function ($rootScope, $q) {
         if (cursor && i < top) {
           i++;
           news.push(cursor.value);
-          cursor.continue();
+          cursor['continue']();
         } else {
           deferred.resolve(news);
         }

@@ -97,7 +97,56 @@
           </execution>
         </executions>
       </plugin>
+      <!-- yui compressor -->
+      <!--
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>yuicompressor-maven-plugin</artifactId>
+        <version>1.5.1</version>
+        <configuration>
+          <preProcessAggregates>true</preProcessAggregates>
+          <suffix>.min</suffix>     
+          
+          <aggregations>
+            <aggregation>
+              <insertNewLine>true</insertNewLine>
+              <output>${basedir}/target/single.js</output>
+              <inputDir>${basedir}/src/main/webapp/js</inputDir>                            
+              <includes>
+                <include>**/*.js</include>
+              </includes>
+              <excludes>                                
+                <exclude>**/*jquery*.js</exclude>
+                <exclude>**/mobile*.js</exclude>
+                <exclude>**/live.js</exclude>
+                <exclude>**/newspaper.js</exclude>
+                <exclude>**/stadium_map.js</exclude>                                
+              </excludes>
+            </aggregation>
+          </aggregations>
+          
+          <excludes>
+            <exclude>**/*-min.js</exclude>
+            <exclude>**/*.min.js</exclude>
+            <exclude>**/*-min.css</exclude>
+            <exclude>**/*.min.css</exclude>
+          </excludes>
+          <jswarn>false</jswarn>
+          <nosuffix>false</nosuffix>
+          <sourceDirectory>${basedir}/target</sourceDirectory>
+          <outputDirectory>${project.build.directory}/${project.build.finalName}/js</outputDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <id>compress_js_css</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>compress</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      -->
     </plugins>
   </build>
-
 </project>
