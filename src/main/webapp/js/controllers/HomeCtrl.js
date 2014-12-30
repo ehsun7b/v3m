@@ -1,9 +1,10 @@
-app.controller("HomeCtrl", function ($scope, Page, $http, Database) {
+app.controller("HomeCtrl", function ($scope, Page, $http, Database, Server) {
   Page.setTitle("ورزش ۳");
 
   $scope.count = 20;
   $scope.hotNews = [];
   $scope.videos = [];
+  $scope.newsReceived = false;
 
   $scope.loadHotNews = function () {
     console.info("loading latest news.");
@@ -48,13 +49,21 @@ app.controller("HomeCtrl", function ($scope, Page, $http, Database) {
             });
   };
 
+  $scope.manualLoadNews = function() {
+    $scope.loadHotNews();
+    $scope.newsReceived = false;
+  };
+
   $scope.$on("newsReceived", function(event) {
     console.info("event newsReceived handled");
-    //console.info(event);    
-    $scope.loadHotNews();
+    //$scope.loadHotNews();
+    $scope.newsReceived = true;
     angular.element("#sndDing")[0].play();
   });
 
+  Server.loadNews();
   $scope.loadHotNews();
-  $scope.loadVideos();
+  $scope.loadVideos();  
+  
+  scope = $scope;
 });

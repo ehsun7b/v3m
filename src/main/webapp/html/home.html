@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+<input type="button" data-ng-show="newsReceived" data-ng-click="manualLoadNews()" value="خبر جدید رسید" class="btn btn-default btn-block manualLoad"/>
 <h2>آخرین اخبار</h2>
 <div class="hotNewsList" data-ng-repeat="news in hotNews">
   <a href="#!/news/{{news.id}}">
     <div class="hotNews">
-      <div class="hotNewsImage"><img alt="{{news.title}}" src="/service/image/news/main/80/60/{{news.id}}/photo.png" /></div>
+      <div class="hotNewsImage"><img alt="{{news.title}}" src="/service/image/news/main/{{newsImageWidth}}/{{newsImageHeight}}/{{news.id}}/photo.png" /></div>
       <div class="hotNewsPreTitle">{{news.preTitle}}</div>
       <div class="hotNewsTitle">{{news.title}}</div>
       <div class="hotNewsAbstract">{{news.abstractText}}</div>

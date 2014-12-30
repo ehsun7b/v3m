@@ -89,6 +89,10 @@ bod {
   color: #999999;
 }
 
+.sidebar-nav a i.fa {
+  display: inline;
+}
+
 .sidebar-nav li a:hover {
   text-decoration: none;
   color: #fff;
@@ -406,4 +410,8 @@ video {
     width: 95%;
     margin:20px auto;
   }
+}
+
+input.manualLoad {
+  font-size: 20px;
 }

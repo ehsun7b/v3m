@@ -65,10 +65,7 @@ app.run(function ($rootScope, $interval) {
   }, 5000);
   
   $rootScope.checkNews = function() {
-    //console.info("checking news ...");
-    //console.info("insert: " + $rootScope.lastInsert + " load: " + $rootScope.lastLoad);
     if ($rootScope.lastInsert > $rootScope.lastLoad) {
-      //console.info("event newsReceived fired");
       $rootScope.$broadcast("newsReceived");
     }
   };
