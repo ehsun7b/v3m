@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<h2>آرشیو اخبار</h2>
+<!-- adsense -->
+<div data-my-ad-sense style="margin: 0px auto; text-align: center;">
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- varzesh3mob -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-1305937802991389"
+       data-ad-slot="7579551991"
+       data-ad-format="auto"></ins>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+<!-- /adsense -->
+
+<div data-infinite-scroll="shot()">
+  <div class="hotNewsList" data-ng-repeat="news in filteredList">
+    <a href="#!/news/{{news.id}}">
+      <div class="hotNews" style="min-height: {{newsImageHeight + 20}}px">
+        <div class="hotNewsImage"><img alt="{{news.title}}" src="/service/image/news/main/{{newsImageWidth}}/{{newsImageHeight}}/{{news.id}}/photo.png" /></div>
+        <div class="hotNewsPreTitle">{{news.preTitle}}</div>
+        <div class="hotNewsTitle">{{news.title}}</div>
+        <div class="hotNewsAbstract">{{news.abstractText}}</div>
+      </div>
+    </a>
+  </div>
+</div>

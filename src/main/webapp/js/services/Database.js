@@ -1,11 +1,8 @@
 app.factory("Database", function ($rootScope, $q) {
   var instance = {
-    dbVersion: 15,
+    dbVersion: 17,
     dbName: "varzesh3mob.com"
   };
-
-  //console.log("root scope");
-  //console.log($rootScope);
 
   instance.onUpgrade = function (event) {
     console.log("Upgrading the indexedDB.");
@@ -145,6 +142,46 @@ app.factory("Database", function ($rootScope, $q) {
     return deferred.promise;
   };
 
+  instance.loadHotNews = function (top) {
+    console.info("loading hot news");
+    var deferred = $q.defer();
+
+    var promise = this.open();
+
+    promise.then(function (db) {
+
+      var transaction = db.transaction(["news"], "readonly");
+      var objectStore = transaction.objectStore("news");
+
+      var news = [];
+      var request = objectStore.openCursor(null, "prev"); // 'prev' is for descening order
+      var i = 0;
+
+      request.onsuccess = function (event) {
+        var cursor = event.target.result;
+
+        if (cursor && i < top) {
+          var item = cursor.value;
+          if (item.hot) {
+            news.push(item);
+            i++;
+          }
+          cursor['continue']();
+        } else {
+          deferred.resolve(news);
+          $rootScope.lastLoad = new Date().getTime();
+        }
+      };
+
+      request.onerror = function (event) {
+        deferred.reject(event);
+      };
+    }, function (event) {
+      deferred.reject(event);
+    });
+
+    return deferred.promise;
+  };
 
   instance.loadNews = function (id) {
     //console.info("loading news " + id);
@@ -196,6 +233,42 @@ app.factory("Database", function ($rootScope, $q) {
 
   instance.isReady = function () {
     return this.db !== null;
+  };
+
+  instance.loadAllNews = function () {
+    console.info("loading all news ...");
+    var deferred = $q.defer();
+
+    var promise = this.open();
+
+    promise.then(function (db) {
+
+      var transaction = db.transaction(["news"], "readonly");
+      var objectStore = transaction.objectStore("news");
+
+      var news = [];
+      var request = objectStore.openCursor(null, "prev"); // 'prev' is for descening order
+
+      request.onsuccess = function (event) {
+        var cursor = event.target.result;
+
+        if (cursor) {
+          news.push(cursor.value);
+          cursor['continue']();
+        } else {
+          deferred.resolve(news);
+          $rootScope.lastLoad = new Date().getTime();
+        }
+      };
+
+      request.onerror = function (event) {
+        deferred.reject(event);
+      };
+    }, function (event) {
+      deferred.reject(event);
+    });
+
+    return deferred.promise;
   };
 
   return instance;

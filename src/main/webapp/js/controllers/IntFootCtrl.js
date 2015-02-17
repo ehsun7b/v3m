@@ -1,4 +1,4 @@
-app.controller("IntFootCtrl", function ($scope, Page, $http, Database) {
+app.controller("IntFootCtrl", function ($scope, Page, $http, Database, $location) {
   Page.setTitle("فوتبال داخلی");
 
   $scope.count = 50;
@@ -34,6 +34,11 @@ app.controller("IntFootCtrl", function ($scope, Page, $http, Database) {
       getFromServer();
     });
   };
+
+
+  $scope.$on("showRecentNews", function () {
+    $location.path("/");
+  });
 
   $scope.loadHotNews();
 });

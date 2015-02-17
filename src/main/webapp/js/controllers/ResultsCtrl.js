@@ -1,4 +1,4 @@
-app.controller("ResultsCtrl", function ($scope, Page, $http, $sce, $interval) {
+app.controller("ResultsCtrl", function ($scope, Page, $http, $sce, $interval, $location) {
   Page.setTitle("نتایج زنده");
 
   $scope.resultsTable;
@@ -47,8 +47,12 @@ app.controller("ResultsCtrl", function ($scope, Page, $http, $sce, $interval) {
             });
   };
 
+  $scope.$on("showRecentNews", function () {
+    $location.path("/");
+  });
+
   $scope.loadResults();
   $scope.loadRanking();
-  
+
   $interval($scope.loadResults, 15000);
 });

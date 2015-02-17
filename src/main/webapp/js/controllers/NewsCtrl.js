@@ -1,4 +1,4 @@
-app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams, Database) {
+app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams, Database, $location) {
   var newsId = $routeParams.param;
   //console.info("news id: " + newsId);
 
@@ -115,6 +115,11 @@ app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams, Database
       console.error("Node is null!");
     }
   };
+
+  $scope.$on("showRecentNews", function () {
+    $location.path("/");
+  });
+
 
   $scope.loadNews();
 });

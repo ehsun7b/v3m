@@ -26,4 +26,8 @@ public interface NewsBeanLocal {
   List<News> footExtNews(int limit);
   
   List<News> sportsNews(int limit);
+  
+  List<News> lastNews(int limit);
+
+  List<News> lastNews(Long id);
 }

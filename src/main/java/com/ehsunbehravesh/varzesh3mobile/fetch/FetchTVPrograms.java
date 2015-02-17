@@ -17,7 +17,7 @@ public class FetchTVPrograms {
   public String fetch() throws IOException {
     Document doc = Jsoup.connect(URL).get();
 
-    Elements widget = doc.select("div#identifierwidget-7");
+    Elements widget = doc.select("div#tv-schedule");
     Element widgetContent = widget.select("div.widget-content").get(0);
     
     if (widgetContent != null) {

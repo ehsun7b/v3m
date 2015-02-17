@@ -63,7 +63,7 @@ public class FetchNewspaper {
     try {
       Document doc = Jsoup.parse(new URL(url).openStream(), "UTF-8", url);
       
-      Element img = doc.select("div#anc-op").get(0).select("img").get(0);
+      Element img = doc.select("div#newspaper-large-container").get(0).select("img").get(0);
       url = img.absUrl("src");
       
       BufferedImage image = ThumbnailUtils.fetchImage(url);

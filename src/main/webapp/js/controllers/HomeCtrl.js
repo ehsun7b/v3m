@@ -1,20 +1,23 @@
-app.controller("HomeCtrl", function ($scope, Page, $http, Database, Server) {
+app.controller("HomeCtrl", function ($rootScope, $scope, Page, $http, Database, Server, $interval) {
   Page.setTitle("ورزش ۳");
 
   $scope.count = 20;
+  $scope.hotCount = 10;
+  $scope.lastNews = [];
   $scope.hotNews = [];
   $scope.videos = [];
-  $scope.newsReceived = false;
+  $scope.currentHotNewsIndex = 0;
+  //$scope.currentHotNews = {};
+  $scope.hotNewsInterval = 10000;
 
-  $scope.loadHotNews = function () {
+  $scope.loadLastNews = function () {
     console.info("loading latest news.");
 
     function getFromServer() {
       console.info("getting latest news from server.");
-      $http({method: "GET", url: "/service/news/hot/" + $scope.count}).
+      $http({method: "GET", url: "/service/news/last/" + $scope.count}).
               success(function (data, status, headers, config) {
-                $scope.hotNews = data;
-                //console.log(data);
+                $scope.lastNews = data;
               }).
               error(function (data, status, headers, config) {
                 console.error("Error in fetching latest news!");
@@ -26,7 +29,7 @@ app.controller("HomeCtrl", function ($scope, Page, $http, Database, Server) {
 
     promise.then(function (newsList) {
       if (newsList && newsList.length > 0) {
-        $scope.hotNews = newsList;
+        $scope.lastNews = newsList;
       } else {
         getFromServer();
       }
@@ -35,6 +38,28 @@ app.controller("HomeCtrl", function ($scope, Page, $http, Database, Server) {
       console.error(event);
       getFromServer();
     });
+  };
+
+  $scope.loadHotNews = function () {
+    console.info("getting hot news from server.");
+    $http({method: "GET", url: "/service/news/hot/" + $scope.hotCount}).
+            success(function (data, status, headers, config) {
+              $scope.hotNews = data;
+            }).
+            error(function (data, status, headers, config) {
+              console.error("Error in fetching hot news!");
+              console.log("status: " + status);
+            });
+  };
+
+  $scope.showNextHotNews = function () {
+    if ($scope.currentHotNewsIndex < $scope.hotNews.length - 1) {
+      $scope.currentHotNewsIndex++;
+    } else {
+      $scope.currentHotNewsIndex = 0;
+    }
+
+    $scope.currentHotNews = $scope.hotNews[$scope.currentHotNewsIndex];
   };
 
   $scope.loadVideos = function () {
@@ -49,21 +74,26 @@ app.controller("HomeCtrl", function ($scope, Page, $http, Database, Server) {
             });
   };
 
-  $scope.manualLoadNews = function() {
+  $scope.manualLoadNews = function () {
+    $scope.loadLastNews();
     $scope.loadHotNews();
-    $scope.newsReceived = false;
+    console.info("event newsDisplayed fired");
+    $scope.$emit("newsDisplayed");
   };
 
-  $scope.$on("newsReceived", function(event) {
-    console.info("event newsReceived handled");
-    //$scope.loadHotNews();
-    $scope.newsReceived = true;
-    angular.element("#sndDing")[0].play();
-  });
+  if (!$rootScope.wsSupported) {
+    console.info("WebSocket is not supported");
+    Server.loadNews();
+  } else {
+    $scope.$on("showRecentNews", $scope.manualLoadNews);
+  }
 
-  Server.loadNews();
+  $interval($scope.showNextHotNews, $scope.hotNewsInterval);
+
+  $scope.loadLastNews();
   $scope.loadHotNews();
-  $scope.loadVideos();  
-  
-  scope = $scope;
+  $scope.loadVideos();
+  $scope.newsReceived = false;
+  console.info("event newsDisplayed fired");
+  $scope.$emit("newsDisplayed");
 });

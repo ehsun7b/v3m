@@ -42,6 +42,10 @@ app.config(function ($routeProvider, $locationProvider) {
             templateUrl: "html/play.html",
             controller: "PlayCtrl"
           })
+          .when("/archive", {
+            templateUrl: "html/archive.html",
+            controller: "ArchiveCtrl"
+          })
           .otherwise({
             redirectTo: "/"
           });
@@ -52,27 +56,41 @@ app.config(function ($routeProvider, $locationProvider) {
 
 });
 
-app.run(function ($rootScope, $interval) {
+app.run(function ($rootScope, $interval, NewsWS) {
   console.log("app run");
 
   $rootScope.facebookAppId = '623178241126464';
   $rootScope.lastInsert = 0;
   $rootScope.lastLoad = 0;
+  $rootScope.wsSupported = typeof (WebSocket) === "function";
+  $rootScope.unreadCount = 0;
+  $rootScope.unreadExtFootCount = 0;
+  $rootScope.unreadIntFootCount = 0;
+  $rootScope.unreadSportsCount = 0;
+
+  console.info($rootScope.wsSupported);
+
+  // if WebSocket is not supported
+  if (!$rootScope.wsSupported) {
+    $interval(function () {
+      $rootScope.checkNews();
+    }, 5000);
+
+    $rootScope.checkNews = function () {
+      if ($rootScope.lastInsert > $rootScope.lastLoad) {
+        $rootScope.$broadcast("newsReceived");
+      }
+    };
+  } else {
+    NewsWS.init();
+  }
 
 
-  $interval(function() {
-    $rootScope.checkNews();
-  }, 5000);
-  
-  $rootScope.checkNews = function() {
-    if ($rootScope.lastInsert > $rootScope.lastLoad) {
-      $rootScope.$broadcast("newsReceived");
-    }
-  };
-  
-  $rootScope.welcome = function() {
+  $rootScope.welcome = function () {
     console.log("welcome haha");
-  };  
+  };
+
+
 });
 
 

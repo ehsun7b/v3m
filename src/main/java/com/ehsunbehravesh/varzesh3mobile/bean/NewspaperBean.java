@@ -39,8 +39,5 @@ public class NewspaperBean implements NewspaperBeanLocal {
   @Override
   public NewspaperPage findPageById(final Long id) {
     return em.find(NewspaperPage.class, id);
-  }
-
-
-  
+  }  
 }

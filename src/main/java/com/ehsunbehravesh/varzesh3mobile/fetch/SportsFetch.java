@@ -30,7 +30,7 @@ public class SportsFetch {
       url = link.absUrl("href");
       url = url.replace("/files", "");
       News news = new News();
-      news.setUrl(url);
+      news.setUrl(FetchNews.removeTitleFromURL(url));
       news.setCategory(News.CAT_OTHER_SPORTS);
 
       result.add(news);

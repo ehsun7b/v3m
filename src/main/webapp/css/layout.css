@@ -148,9 +148,81 @@ bod {
 }
 /*}*/
 
+div#header {
+  width: 100%;
+  background-color: #000;
+  position: fixed; top: 0px; left: 0px;
+  padding: 5px;
+  height: 40px;
+}
+
+a.btnToggle {
+  color: #999;
+  cursor: pointer;
+}
+
+a.btnToggle:hover {
+  color: white;
+  text-decoration: none;  
+}
+
+span#unreadCount {
+  display: inline-block;
+  padding: 2px;
+  background-color: red;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  border-radius: 3px;
+  line-height: 0.8em;
+}
+
 div.pageContent {
+  margin-top: 40px;
   clear: both;
 }
+
+div.fixfooter {
+  height: 75px;
+  background-color: black;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  margin: 0px;
+  right: 0px;
+  left: 0px;
+  overflow: hidden;  
+}
+
+div.fixfooter div.hotNews {
+  margin: 0px auto;
+}
+
+div.fixfooter div.hotNews:hover {
+  background-color: transparent;
+}
+
+div.fixfooter div.hotNews div.hotNewsPreTitle {
+  color: #fff;
+  font-size: 10px;
+}
+
+div.fixfooter div.hotNews div.hotNewsTitle {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+div.fixfooter div.hotNews div.hotNewsAbstract {
+  font-size: 14px;
+  color: white;
+}
+
+div.fixfooter div.hotNews div.hotNewsImage {
+  float: right;
+  padding-left: 10px;
+}
+
 
 /* HOT NEWS */
 
@@ -162,7 +234,7 @@ div.hotNewsList {
 div.hotNews {
   width: 100%;
   border: 0px dashed red;
-  min-height: 120px;
+  /*min-height: 120px;*/
   padding: 10px 20px;
   margin: 30px 0px;
 }
@@ -174,6 +246,7 @@ div.hotNews a:hover {
 div.hotNews:hover {
   background-color: #DFDFDF;
   border-radius: 5px;  
+  text-decoration: none;
 }
 
 div.hotNewsPreTitle {
@@ -201,7 +274,7 @@ div.hotNewsImage img {
 }
 
 @media(max-width:640px) {
-  div.hotNews {
+  div.hotNews {    
     margin: 0px;
   }
 
@@ -307,10 +380,8 @@ div.timetable {
 }
 
 .socialPages {
-  text-align: left;
   font-size: 26px;
   float: left;
-  margin-bottom: 10px;
 }
 
 .facebook {
@@ -351,6 +422,7 @@ img.newsContentImage {
 div.footer {
   clear: both;
   margin: 20px auto;
+  /*margin-bottom: 75px;*/
   padding: 10px;
   border-top: 1px #777 dotted;
   text-align: center;
@@ -412,6 +484,14 @@ video {
   }
 }
 
-input.manualLoad {
-  font-size: 20px;
+a.manualLoad {
+  font-size: 14px;
+  color: #d34836;
+  background-color: white;
+  cursor: pointer;
+  display: inline-block;
+  padding: 1px;
+  border-radius: 3px;
+  position: relative;
+  bottom: 3px;  
 }

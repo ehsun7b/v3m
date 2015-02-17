@@ -1,4 +1,4 @@
-app.controller("PlayCtrl", function ($scope, Page, $http, $routeParams, $sce) {
+app.controller("PlayCtrl", function ($scope, Page, $http, $routeParams, $sce, $location) {
   var videoId = $routeParams.param;
   console.info(videoId);
 
@@ -15,7 +15,7 @@ app.controller("PlayCtrl", function ($scope, Page, $http, $routeParams, $sce) {
               $("video#video").attr("width", $scope.video.width);
               $("video#video").attr("height", $scope.video.height);
               $("source#source").attr("src", $scope.video.contentURL);
-              
+
               document.getElementById("video").load();
             }).
             error(function (data, status, headers, config) {
@@ -31,6 +31,10 @@ app.controller("PlayCtrl", function ($scope, Page, $http, $routeParams, $sce) {
   $scope.back = function () {
     window.history.back();
   };
+
+  $scope.$on("showRecentNews", function () {
+    $location.path("/");
+  });
 
   $scope.loadVideo();
 });

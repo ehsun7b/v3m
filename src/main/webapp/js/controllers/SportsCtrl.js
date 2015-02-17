@@ -1,4 +1,4 @@
-app.controller("SportsCtrl", function ($scope, Page, $http, Database) {
+app.controller("SportsCtrl", function ($scope, Page, $http, Database, $location) {
   Page.setTitle("غیر فوتبالی");
 
   $scope.count = 50;
@@ -35,6 +35,11 @@ app.controller("SportsCtrl", function ($scope, Page, $http, Database) {
       getFromServer();
     });
   };
+
+  $scope.$on("showRecentNews", function () {
+    $location.path("/");
+  });
+
 
   $scope.loadHotNews();
 });

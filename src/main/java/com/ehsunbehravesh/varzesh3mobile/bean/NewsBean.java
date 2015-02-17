@@ -16,6 +16,7 @@ public class NewsBean implements NewsBeanLocal {
 
   @PersistenceContext
   private EntityManager em;
+  private static final Long MAX_COUNT_LAST_NEWS = 50l;
 
   @Override
   public void insertNews(News news) {
@@ -46,10 +47,19 @@ public class NewsBean implements NewsBeanLocal {
 
   @Override
   public List<News> hotNews(int limit) {
-    //String sql = "SELECT n FROM News n WHERE n.hot = :hot ORDER BY n.id DESC";
+    String sql = "SELECT n FROM News n WHERE n.hot = :hot ORDER BY n.id DESC";
+    TypedQuery<News> query = em.createQuery(sql, News.class);
+    query.setParameter("hot", Boolean.TRUE);
+    query.setMaxResults(limit);
+    List<News> result = query.getResultList();
+
+    return result;
+  }
+
+  @Override
+  public List<News> lastNews(int limit) {
     String sql = "SELECT n FROM News n ORDER BY n.id DESC";
     TypedQuery<News> query = em.createQuery(sql, News.class);
-    //query.setParameter("hot", Boolean.TRUE);
     query.setMaxResults(limit);
     List<News> result = query.getResultList();
 
@@ -93,5 +103,24 @@ public class NewsBean implements NewsBeanLocal {
     List<News> result = query.getResultList();
 
     return result;
+  }
+
+  @Override
+  public List<News> lastNews(Long id) {
+    Long lastId = getLastNewsId();
+    if (lastId > id + MAX_COUNT_LAST_NEWS) {
+      return lastNews(MAX_COUNT_LAST_NEWS.intValue());
+    } else {
+      String sql = "SELECT n FROM News n WHERE n.id > :id ORDER BY n.id DESC";
+      TypedQuery<News> query = em.createQuery(sql, News.class);
+      query.setParameter("id", id);
+      return query.getResultList();
+    }
+  }
+
+  private Long getLastNewsId() {
+    String sql = "SELECT max(n.id) FROM News n";
+    TypedQuery<Long> query = em.createQuery(sql, Long.class);
+    return query.getSingleResult();
   }
 }

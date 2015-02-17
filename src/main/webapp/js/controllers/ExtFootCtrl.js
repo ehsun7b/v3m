@@ -1,4 +1,4 @@
-app.controller("ExtFootCtrl", function ($scope, Page, $http, Database) {
+app.controller("ExtFootCtrl", function ($scope, Page, $http, Database, $location) {
   Page.setTitle("فوتبال خارجی");
 
   $scope.count = 50;
@@ -19,7 +19,7 @@ app.controller("ExtFootCtrl", function ($scope, Page, $http, Database) {
                 console.log("status: " + status);
               });
     }
-    
+
     var promise = Database.loadLatestNewsByCategory($scope.count, "foot_ext");
 
     promise.then(function (newsList) {
@@ -34,6 +34,10 @@ app.controller("ExtFootCtrl", function ($scope, Page, $http, Database) {
       getFromServer();
     });
   };
+
+  $scope.$on("showRecentNews", function () {
+    $location.path("/");
+  });
 
   $scope.loadHotNews();
 });

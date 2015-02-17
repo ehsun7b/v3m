@@ -1,4 +1,4 @@
-app.controller("TVCtrl", function ($scope, Page, $http, $sce) {
+app.controller("TVCtrl", function ($scope, Page, $http, $sce, $location) {
   Page.setTitle("جدول پخش ورزش از تلویزیون");
 
   $scope.timeTable;
@@ -14,6 +14,10 @@ app.controller("TVCtrl", function ($scope, Page, $http, $sce) {
               console.log("status: " + status);
             });
   };
+
+  $scope.$on("showRecentNews", function () {
+    $location.path("/");
+  });
 
   $scope.loadTVPrograms();
 });

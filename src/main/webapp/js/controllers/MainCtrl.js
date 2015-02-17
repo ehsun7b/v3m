@@ -1,25 +1,22 @@
-app.controller("MainCtrl", function ($scope, Page, $http, $window, Server, $timeout) {
+app.controller("MainCtrl", function ($rootScope, $scope, Page, $http, $window, Server, $timeout) {
   $scope.Page = Page;
-  $scope.mobile = true;  
+  $scope.mobile = true;
   $scope.loadNewsInterval = 1000 * 60 * 5; // 5 minutes
   $scope.width = 0;
   $scope.newsImageWidth = 80;
   $scope.newsImageHeight = 60;
-  
+  $scope.newsReceived = false;
+
   fixMenuHeight();
-  
-  $scope.onResize = function() {
+
+  $scope.onResize = function () {
     $scope.width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     $scope.newsImageWidth = Math.max(80, Math.round($scope.width / 8));
-    //console.info($scope.width);
-    //console.info($scope.newsImageWidth);
     $scope.newsImageHeight = Math.max(60, Math.round($scope.newsImageWidth * 80 / 100));
-    //console.info($scope.newsImageHeight);
-    
   };
-  
+
   $scope.onResize();
-  
+
   window.addEventListener("resize", fixMenuHeight);
   window.addEventListener("resize", $scope.onResize);
 
@@ -34,22 +31,41 @@ app.controller("MainCtrl", function ($scope, Page, $http, $window, Server, $time
               console.log("status: " + status);
             });
   };
-  
-  $scope.showDesktop = function() {
+
+  $scope.showDesktop = function () {
     $window.location.href = 'http://www.varzesh3.com';
   };
-  
-  $scope.loadNewsRepeat = function() {
+
+  $scope.loadNewsRepeat = function () {
     Server.loadNews();
     $timeout($scope.loadNewsRepeat, $scope.loadNewsInterval);
   };
+
+  if (!$rootScope.wsSupported) {
+    console.info("WebSocket is not supported");
+    $scope.loadNewsRepeat();
+  }
+
+  $scope.$on("newsReceived", function (event) {
+    console.info("event newsReceived handled");
+    $scope.newsReceived = true;
+  });
   
-  $scope.loadNewsRepeat();
+  $scope.$on("newsDisplayed", function (event) {
+    console.info("event newsDisplayed handled");
+    $scope.newsReceived = false;
+  });
+
+  $scope.showRecentNews = function() {
+    console.info("event showRecentNews fired");
+    $scope.$broadcast("showRecentNews");
+    $scope.newsReceived = false;
+  };
+
   $scope.isMobile();
 });
 
 function fixMenuHeight() {
-  //console.log("fix height");
   var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 

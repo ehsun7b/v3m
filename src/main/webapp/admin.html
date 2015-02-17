@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html data-ng-app="adminapp" data-ng-controller="AdminMainCtrl">
+    <title>ورزش ۳ | نسخه موبایل</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <meta name="fragment" content="!">
+    <meta id="theme" name="theme-color" content="#000000">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-rtl.min.css">    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>   
+  </head>
+  <body class="nasim">
+    <div id="wrapper" data-ng-controller="AdminMenuCtrl" class="{{showClass}}">      
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">       
+        <ul class="sidebar-nav">
+          <li><i style="cursor: pointer" class="fa fa-arrow-circle-right" data-ng-click="toggle()"><span class="nasim" style="font-size: larger"> بستن</span></i></li>
+          <li class="sidebar-brand">
+            <a href="/admin.html" data-ng-click="toggle()">دشبورد</a>
+          </li>
+          <li>
+            <a href="#!intfoot" data-ng-click="toggle()"><i class="fa fa-soccer-ball-o" style="font-size: 12px"></i>&nbsp;&nbsp;&nbsp;فوتبال ایران</a>
+          </li>
+          
+        </ul>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <div id="header">
+          <div class="socialPages">
+            <a href="https://www.facebook.com/varzesh3mob" class="facebook" target="_blank"><i class="fa fa-facebook-square"></i></a>          
+            <a href="https://plus.google.com/+Varzesh3mob" rel="publisher" class="gplus" target="_blank"><i class="fa fa-google-plus-square"></i></a>
+          </div>
+          <a data-ng-hide="" data-ng-click="toggle()" style="white-space: nowrap; display: inline-block; margin-top: 5px;" class="btnToggle"><i class="fa fa-bars" style="font-size: 20px; margin-right: 10px;"></i></a>
+        </div>        
+        <div data-ng-view class="pageContent" style="min-height: 300px;"></div>        
+        <div class="footer">نسخه بهینه شده برای موبایل از اخبار وب سایت <a target="_blank" href="http://www.varzesh3.com">ورزش ۳</a></div>
+      </div>
+      <!-- /#page-content-wrapper -->      
+    </div>
+    <!-- /#wrapper -->
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.js"></script>    
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+
+    <script src="/js/adminapp.js"></script>
+    <script src="/js/controllers/AdminMenuCtrl.js"></script>
+    <script src="/js/controllers/AdminMainCtrl.js"></script>
+    <script src="/js/controllers/AdminHomeCtrl.js"></script>
+  </body>
+</html>

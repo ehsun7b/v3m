@@ -145,7 +145,7 @@ public class HTMLSnapshotServlet extends HttpServlet {
           }
         }
 
-        Long id = Long.parseLong(parts[i]);
+        Long id = Long.parseLong(parts[i].replace(",", ""));
         news = newsBean.findById(id);
 
         if (news != null) {
@@ -169,7 +169,7 @@ public class HTMLSnapshotServlet extends HttpServlet {
           }
         }
 
-        Long id = Long.parseLong(parts[i]);
+        Long id = Long.parseLong(parts[i].replace(",", ""));
         video = videoBean.findByID(id);
 
         if (video != null) {

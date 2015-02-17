@@ -27,7 +27,7 @@ public class FootballExternalFetch {
       String url = link.absUrl("href");
       url = url.replace("/files", "");
       News news = new News();
-      news.setUrl(url);
+      news.setUrl(FetchNews.removeTitleFromURL(url));
       news.setCategory(News.CAT_FOOTBALL_EXTERNAL);
 
       result.add(news);
