@@ -1,3 +1,4 @@
+"use strict";
 app.directive('scrollReached', function ($rootScope, $window, $timeout) {
   var instance = {
   };

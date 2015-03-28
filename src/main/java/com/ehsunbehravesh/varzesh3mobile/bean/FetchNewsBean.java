@@ -10,7 +10,6 @@ import com.ehsunbehravesh.varzesh3mobile.fetch.FootballInternalFetch;
 import com.ehsunbehravesh.varzesh3mobile.fetch.SportsFetch;
 import com.google.common.collect.Lists;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -1,3 +1,4 @@
+"use strict";
 var adminapp = angular.module("adminapp", ["ngRoute"]);
 
 adminapp.config(function ($routeProvider, $locationProvider) {

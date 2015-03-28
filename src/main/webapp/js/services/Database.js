@@ -1,3 +1,4 @@
+"use strict";
 app.factory("Database", function ($rootScope, $q) {
   var instance = {
     dbVersion: 17,
@@ -137,7 +138,6 @@ app.factory("Database", function ($rootScope, $q) {
     }, function (event) {
       deferred.reject(event);
     });
-
 
     return deferred.promise;
   };

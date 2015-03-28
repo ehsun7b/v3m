@@ -1,3 +1,4 @@
+"use strict";
 app.controller("MenuCtrl", function ($scope) {
   $scope.showClass = "toggled";
   //$scope.menuShow = false;

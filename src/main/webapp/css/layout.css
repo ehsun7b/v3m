@@ -223,6 +223,14 @@ div.fixfooter div.hotNews div.hotNewsImage {
   padding-left: 10px;
 }
 
+div.sameClassList {
+  font-size: 16px;
+}
+
+div.sameClassList a {
+  display: block;
+  line-height: 1.7em;
+}
 
 /* HOT NEWS */
 

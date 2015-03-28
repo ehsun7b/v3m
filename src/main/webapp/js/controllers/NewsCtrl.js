@@ -1,8 +1,10 @@
-app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams, Database, $location) {
+"use strict";
+app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams, Database, $location, NewsClassify) {
   var newsId = $routeParams.param;
   //console.info("news id: " + newsId);
 
   $scope.news;
+  $scope.sameNewsList = [];
 
   $scope.loadNews = function () {
 
@@ -10,9 +12,10 @@ app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams, Database
       $http({method: "GET", url: "/service/news/" + newsId}).
               success(function (data, status, headers, config) {
                 $scope.news = data;
-                //console.log(data);
+                
                 Page.setTitle($scope.news.title);
-                $scope.news.mainText = $scope.process($scope.news.mainText);
+                $scope.process($scope.news.mainText);
+                $scope.showSameTopicNews();
               }).
               error(function (data, status, headers, config) {
                 console.error("Error in fetching news!");
@@ -24,7 +27,8 @@ app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams, Database
     promise.then(function (news) {
       if (news) {
         $scope.news = news;
-        $scope.news.mainText = $scope.process($scope.news.mainText);
+        $scope.process($scope.news.mainText);
+        $scope.showSameTopicNews();
       } else {
         getFromServer();
       }
@@ -49,15 +53,9 @@ app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams, Database
     }
   };
 
-  $scope.clean = function (html) {
-    //console.log("html");
-    //console.log(html);
-
+  $scope.clean = function (html) {    
     var div = document.createElement("div");
     div.innerHTML = html;
-
-    //console.log("div");
-    //console.log(div);
 
     var nodes = div.childNodes;
     var l = nodes.length;
@@ -120,6 +118,16 @@ app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams, Database
     $location.path("/");
   });
 
+  $scope.showSameTopicNews = function() {
+    console.info("showSameTopicNews...");
+    var promise = NewsClassify.classify($scope.news);
+    promise.then(function(result) {
+      $scope.sameNewsList = result;
+    }, function() {
+      console.log("error!");
+    });
+    
+  };
 
   $scope.loadNews();
 });

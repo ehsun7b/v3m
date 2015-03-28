@@ -1,3 +1,4 @@
+"use strict";
 app.directive('fbLike', function ($window, $rootScope) {
   return {
     restrict: 'A',

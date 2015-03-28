@@ -1,3 +1,4 @@
+"use strict";
 app.controller("SportsCtrl", function ($scope, Page, $http, Database, $location) {
   Page.setTitle("غیر فوتبالی");
 

@@ -1,3 +1,4 @@
+"use strict";
 app.controller("MainCtrl", function ($rootScope, $scope, Page, $http, $window, Server, $timeout) {
   $scope.Page = Page;
   $scope.mobile = true;

@@ -1,3 +1,4 @@
+"use strict";
 app.controller("HomeCtrl", function ($rootScope, $scope, Page, $http, Database, Server, $interval) {
   Page.setTitle("ورزش ۳");
 

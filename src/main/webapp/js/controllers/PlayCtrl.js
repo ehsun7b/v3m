@@ -1,3 +1,4 @@
+"use strict";
 app.controller("PlayCtrl", function ($scope, Page, $http, $routeParams, $sce, $location) {
   var videoId = $routeParams.param;
   console.info(videoId);

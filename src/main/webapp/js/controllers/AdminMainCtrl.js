@@ -1,3 +1,4 @@
+"use strict";
 adminapp.controller("AdminMainCtrl", function ($rootScope, $scope, $http, $window, $timeout) {
   $scope.width = 0;
   fixMenuHeight();

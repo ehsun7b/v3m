@@ -1,3 +1,4 @@
+"use strict";
 app.controller("ExtFootCtrl", function ($scope, Page, $http, Database, $location) {
   Page.setTitle("فوتبال خارجی");
 

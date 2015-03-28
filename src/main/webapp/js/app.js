@@ -1,3 +1,4 @@
+"use strict";
 var app = angular.module("app", ["ngRoute"]);
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -56,17 +57,13 @@ app.config(function ($routeProvider, $locationProvider) {
 
 });
 
-app.run(function ($rootScope, $interval, NewsWS) {
+app.run(function ($rootScope, $interval, NewsWS, $window) {
   console.log("app run");
 
   $rootScope.facebookAppId = '623178241126464';
   $rootScope.lastInsert = 0;
   $rootScope.lastLoad = 0;
   $rootScope.wsSupported = typeof (WebSocket) === "function";
-  $rootScope.unreadCount = 0;
-  $rootScope.unreadExtFootCount = 0;
-  $rootScope.unreadIntFootCount = 0;
-  $rootScope.unreadSportsCount = 0;
 
   console.info($rootScope.wsSupported);
 
@@ -90,7 +87,22 @@ app.run(function ($rootScope, $interval, NewsWS) {
     console.log("welcome haha");
   };
 
+  // google adsense refresh
+  /*
+  $interval(function () {
+    if ($window.googletag && $window.googletag.pubads) {
+      $window.googletag.pubads().refresh();
+    }
+  }, 10000);*/
 
+  // google analytics
+  $rootScope.$on('$stateChangeSuccess', function () {
+
+    if ($window.ga) {
+      $window.ga('send', 'pageview', {page: $location.path()});
+    }
+
+  });
 });
 
 

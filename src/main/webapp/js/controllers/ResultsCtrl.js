@@ -1,3 +1,4 @@
+"use strict";
 app.controller("ResultsCtrl", function ($scope, Page, $http, $sce, $interval, $location) {
   Page.setTitle("نتایج زنده");
 

@@ -1,3 +1,4 @@
+"use strict";
 app.factory("NewsWS", function ($rootScope, Database, Server) {
   var instance = {
     wsNews: null
@@ -38,36 +39,18 @@ app.factory("NewsWS", function ($rootScope, Database, Server) {
     console.info("ws message");
     var newsIds = JSON.parse(e.data);
     var newsList = [];
-    var unreadIntFoot = 0;
-    var unreadExtFoot = 0;
-    var unreadSports = 0;
-
+    
     for (var i = 0; i < newsIds.length; ++i) {
       var id = newsIds[i];
       var promise = Server.loadNewsById(id);
 
       promise.then(function (news) {
-        news.clientFetchTime = new Date();
-
-        if (news.category === "foot_ext") {
-          unreadExtFoot++;
-        } else if (news.category === "foot_int") {
-          unreadIntFoot++;
-        } else if (news.category === "sports") {
-          unreadSports++;
-        }
-
         newsList.push(news);
         console.log(news);
 
         if (newsIds.length === newsList.length) {
           Database.saveNewsList(newsList);
           $rootScope.$broadcast("newsReceived");
-
-          $rootScope.unreadExtFootCount = unreadExtFoot;
-          $rootScope.unreadIntFootCount = unreadIntFoot;
-          $rootScope.unreadSportsCount = unreadSports;
-          $rootScope.unreadCount = unreadExtFoot + unreadIntFoot + unreadSports;
         }
       }, function (error) {
         console.log(error);

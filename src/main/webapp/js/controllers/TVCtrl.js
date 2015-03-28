@@ -1,3 +1,4 @@
+"use strict";
 app.controller("TVCtrl", function ($scope, Page, $http, $sce, $location) {
   Page.setTitle("جدول پخش ورزش از تلویزیون");
 

@@ -1,3 +1,4 @@
+"use strict";
 app.factory("Server", function ($http, $q, Database) {
   var count = 50;
 

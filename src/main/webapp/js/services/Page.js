@@ -1,3 +1,4 @@
+"use strict";
 app.factory("Page", function () {
   var title = "";
   return {

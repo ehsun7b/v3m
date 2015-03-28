@@ -1,4 +1,5 @@
-app.controller("ArchiveCtrl", function ($scope, Page, Database) {
+"use strict";
+app.controller("ArchiveCtrl", function ($scope, Page, Database, $window, $timeout) {
   $scope.allList = [];
   $scope.filteredList = [];
   $scope.shotSize = 10;
@@ -51,12 +52,5 @@ app.controller("ArchiveCtrl", function ($scope, Page, Database) {
   $scope.$on("showRecentNews", $scope.loadNews);
 
   $scope.loadNews();
+  
 });
-
-/*
- $(window).scroll(function () {
- if ($(window).scrollTop() + $(window).height() === $(document).height()) {
- alert("bottom!");
- }
- });
- */

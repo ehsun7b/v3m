@@ -1,3 +1,4 @@
+"use strict";
 app.controller("NewspapersCtrl", function ($scope, Page, $http, $location) {
   Page.setTitle("روزنامه‌های ورزشی");
 

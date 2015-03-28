@@ -21,7 +21,7 @@ public class SportsFetch {
     List<News> result = new ArrayList<>();
     Document doc = Jsoup.connect(URL).get();
 
-    Element div = doc.select("div#identifierwidget-302").get(0);
+    Element div = doc.select("div#other-sports-newslist").get(0);
 
     Elements links = div.select("a[href]");
 

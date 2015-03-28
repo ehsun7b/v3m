@@ -1,3 +1,4 @@
+"use strict";
 app.directive('googlePlus', [
   '$window', function ($window) {
     return {
