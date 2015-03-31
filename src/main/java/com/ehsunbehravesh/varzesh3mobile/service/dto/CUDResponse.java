@@ -1,11 +1,16 @@
 package com.ehsunbehravesh.varzesh3mobile.service.dto;
 
 import java.io.Serializable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Ehsun Behravesh <ehsun.behravesh@mimos.my>
+ * @author Ehsun Behravesh
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CUDResponse implements Serializable {
   
   private Boolean success;
@@ -34,7 +39,5 @@ public class CUDResponse implements Serializable {
 
   public void setError(String error) {
     this.error = error;
-  }
-  
-  
+  }  
 }

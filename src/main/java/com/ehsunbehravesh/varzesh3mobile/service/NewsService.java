@@ -3,7 +3,6 @@ package com.ehsunbehravesh.varzesh3mobile.service;
 import com.ehsunbehravesh.varzesh3mobile.bean.NewsBeanLocal;
 import com.ehsunbehravesh.varzesh3mobile.entity.News;
 import com.ehsunbehravesh.varzesh3mobile.service.dto.CUDResponse;
-import com.google.common.math.DoubleMath;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

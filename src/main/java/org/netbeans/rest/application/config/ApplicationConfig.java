@@ -36,7 +36,8 @@ public class ApplicationConfig extends Application {
     resources.add(com.ehsunbehravesh.varzesh3mobile.service.NewsService.class);
     resources.add(com.ehsunbehravesh.varzesh3mobile.service.NewspaperService.class);
     resources.add(com.ehsunbehravesh.varzesh3mobile.service.RankingService.class);
-    resources.add(com.ehsunbehravesh.varzesh3mobile.service.VideoService.class);
+    resources.add(com.ehsunbehravesh.varzesh3mobile.service.UserService.class);
+        resources.add(com.ehsunbehravesh.varzesh3mobile.service.VideoService.class);
   }
   
 }
