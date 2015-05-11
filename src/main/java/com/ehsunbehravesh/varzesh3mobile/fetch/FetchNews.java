@@ -17,7 +17,7 @@ public class FetchNews {
 
   private static final String codeTitle = "کد خبر:";
   private static final String timeTitle = "زمان:";
-  private static final String visitsTitle = "تعداد بازدید:";
+  private static final String visitsTitle = "بازدید:";
 
   public News fetch(String url, String category) throws Exception {
     News result;
@@ -137,5 +137,14 @@ public class FetchNews {
     }
 
     return url;
+  }
+  
+  public static void main(String[] args) throws Exception {
+    String url = "http://www.varzesh3.com/news/1239679/%D8%A2%D9%85%D8%A7%D8%B1%D9%87%D8%A7-%D8%AA%D8%A7%DB%8C%DB%8C%D8%AF%DA%A9%D8%B1%D8%AF%D9%86%D8%AF%D8%9B%D8%B1%D8%A6%D8%A7%D9%84%DB%8C%D9%87%D8%A7-%D8%A8%D9%87-%D8%A8%DB%8C%D9%84-%DA%A9%D9%85%D8%AA%D8%B1-%D9%BE%D8%A7%D8%B3-%D9%85%DB%8C%D8%AF%D9%87%D9%86%D8%AF";
+    FetchNews f = new FetchNews();
+    News news = f.fetch(url, "");
+    System.out.println("title: " + news.getTitle());
+    System.out.println(news.getAbstractText());
+    
   }
 }
