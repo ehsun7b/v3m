@@ -58,14 +58,14 @@ public class FetchNews {
 
       try {
         Element td2 = tr1.select("td").get(1);
-        Element imgMain = td2.select("img").get(0);
+        Element imgMain = td2.select("img:not(.print)").get(0);
         imgUrl = imgMain.absUrl("src");
         imgText = imgMain.attr("title");
       } catch (Exception ex) {
         // some news have no main image in the main table (Photo news)
         try {
           Element centerTable = doc.select("table#CenterTable").get(0);
-          Element imgMain = centerTable.select("img").get(0);
+          Element imgMain = centerTable.select("img:not(.print)").get(0);
 
           imgUrl = imgMain.absUrl("src");
           imgText = imgMain.attr("title");
