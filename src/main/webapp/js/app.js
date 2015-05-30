@@ -1,7 +1,7 @@
 "use strict";
-var app = angular.module("app", ["ngRoute"]);
+var app = angular.module("app", ["ngRoute", "ngAdsense"]);
 
-app.config(function ($routeProvider, $locationProvider) {
+app.config(function ($routeProvider, $locationProvider, $logProvider) {
   $routeProvider
           .when("/", {
             templateUrl: "html/home.html",
@@ -55,6 +55,8 @@ app.config(function ($routeProvider, $locationProvider) {
           .html5Mode(false)
           .hashPrefix("!");
 
+  $logProvider.debugEnabled(true);
+
 });
 
 app.run(function ($rootScope, $interval, NewsWS, $window) {
@@ -88,12 +90,23 @@ app.run(function ($rootScope, $interval, NewsWS, $window) {
   };
 
   // google adsense refresh
+
+  $rootScope.$on('$locationChangeStart', function () {
+    Object.keys($window).filter(function (k) {
+      return k.indexOf('google') >= 0
+    }).forEach(
+            function (key) {
+              delete($window[key]);
+            }
+    );
+  });
+
   /*
-  $interval(function () {
-    if ($window.googletag && $window.googletag.pubads) {
-      $window.googletag.pubads().refresh();
-    }
-  }, 10000);*/
+   $interval(function () {
+   if ($window.googletag && $window.googletag.pubads) {
+   $window.googletag.pubads().refresh();
+   }
+   }, 10000);*/
 
   // google analytics
   $rootScope.$on('$stateChangeSuccess', function () {

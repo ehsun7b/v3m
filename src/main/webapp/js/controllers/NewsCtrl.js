@@ -1,10 +1,22 @@
 "use strict";
-app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams, Database, $location, NewsClassify) {
+app.controller("NewsCtrl", function ($scope, Page, $http, $routeParams, Database, $location, NewsClassify, $log) {
   var newsId = $routeParams.param;
   //console.info("news id: " + newsId);
 
   $scope.news;
   $scope.sameNewsList = [];
+  $scope.showAdvert = false;
+
+  $scope.initShowAdvert = function() {
+    var probability = 40;
+    var random = Math.floor((Math.random() * 100));
+    $log.debug("prob: " + probability);
+    $log.debug("value: " + random);
+    $scope.showAdvert = random < probability;
+    $log.debug("show: " + $scope.showAdvert);
+  };
+
+  $scope.initShowAdvert();
 
   $scope.loadNews = function () {
 
