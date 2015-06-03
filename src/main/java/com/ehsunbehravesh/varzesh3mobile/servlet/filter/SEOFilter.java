@@ -14,18 +14,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(filterName="SEOFilter", urlPatterns={"/*"})
-public class SEOFilter
-  implements Filter
-{
+@WebFilter(filterName = "SEOFilter", urlPatterns = {"/*"})
+public class SEOFilter implements Filter {
+
   private static final boolean debug = false;
   private FilterConfig filterConfig = null;
 
   private void doBeforeProcessing(ServletRequest request, ServletResponse response)
-    throws IOException, ServletException
-  {
-    for (Enumeration en = request.getParameterNames(); en.hasMoreElements(); ) {
-      String name = (String)en.nextElement();
+          throws IOException, ServletException {
+    for (Enumeration en = request.getParameterNames(); en.hasMoreElements();) {
+      String name = (String) en.nextElement();
       String[] values = request.getParameterValues(name);
 
       if (name.trim().equals("_escaped_fragment_")) {
@@ -37,27 +35,23 @@ public class SEOFilter
           }
         }
 
-        ((HttpServletResponse)response).sendRedirect("http://www.varzesh3mob.com/HTMLSnapshot?query=" + query);
+        ((HttpServletResponse) response).sendRedirect("http://www.varzesh3mob.com/HTMLSnapshot?query=" + query);
       }
     }
   }
 
   private void doAfterProcessing(ServletRequest request, ServletResponse response)
-    throws IOException, ServletException
-  {
+          throws IOException, ServletException {
   }
 
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-    throws IOException, ServletException
-  {
+          throws IOException, ServletException {
     doBeforeProcessing(request, response);
 
     Throwable problem = null;
     try {
       chain.doFilter(request, response);
-    }
-    catch (Throwable t)
-    {
+    } catch (Throwable t) {
       problem = t;
       t.printStackTrace();
     }
@@ -66,37 +60,32 @@ public class SEOFilter
 
     if (problem != null) {
       if ((problem instanceof ServletException)) {
-        throw ((ServletException)problem);
+        throw ((ServletException) problem);
       }
       if ((problem instanceof IOException)) {
-        throw ((IOException)problem);
+        throw ((IOException) problem);
       }
       sendProcessingError(problem, response);
     }
   }
 
-  public FilterConfig getFilterConfig()
-  {
+  public FilterConfig getFilterConfig() {
     return this.filterConfig;
   }
 
-  public void setFilterConfig(FilterConfig filterConfig)
-  {
+  public void setFilterConfig(FilterConfig filterConfig) {
     this.filterConfig = filterConfig;
   }
 
-  public void destroy()
-  {
+  public void destroy() {
   }
 
-  public void init(FilterConfig filterConfig)
-  {
+  public void init(FilterConfig filterConfig) {
     this.filterConfig = filterConfig;
     if (filterConfig != null);
   }
 
-  public String toString()
-  {
+  public String toString() {
     if (this.filterConfig == null) {
       return "SEOFilter()";
     }
@@ -109,7 +98,7 @@ public class SEOFilter
   private void sendProcessingError(Throwable t, ServletResponse response) {
     String stackTrace = getStackTrace(t);
 
-    if ((stackTrace != null) && (!stackTrace.equals("")))
+    if ((stackTrace != null) && (!stackTrace.equals(""))) {
       try {
         response.setContentType("text/html");
         PrintStream ps = new PrintStream(response.getOutputStream());
@@ -122,21 +111,21 @@ public class SEOFilter
         pw.close();
         ps.close();
         response.getOutputStream().close();
+      } catch (Exception ex) {
       }
-      catch (Exception ex) {
-      }
-    else try {
+    } else {
+      try {
         PrintStream ps = new PrintStream(response.getOutputStream());
         t.printStackTrace(ps);
         ps.close();
         response.getOutputStream().close();
+      } catch (Exception ex) {
       }
-      catch (Exception ex)
-      {
-      } 
+    }
   }
 
-  public static String getStackTrace(Throwable t) { String stackTrace = null;
+  public static String getStackTrace(Throwable t) {
+    String stackTrace = null;
     try {
       StringWriter sw = new StringWriter();
       PrintWriter pw = new PrintWriter(sw);
@@ -146,10 +135,10 @@ public class SEOFilter
       stackTrace = sw.getBuffer().toString();
     } catch (Exception ex) {
     }
-    return stackTrace; }
+    return stackTrace;
+  }
 
-  public void log(String msg)
-  {
+  public void log(String msg) {
     this.filterConfig.getServletContext().log(msg);
   }
 }

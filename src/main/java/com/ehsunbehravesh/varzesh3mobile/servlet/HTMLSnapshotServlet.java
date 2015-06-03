@@ -10,6 +10,7 @@ import com.ehsunbehravesh.varzesh3mobile.entity.Video;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -84,6 +85,7 @@ public class HTMLSnapshotServlet extends HttpServlet {
     String description = "";
     String image = "";
     String appId = "623178241126464";
+    StringBuilder newsList = null;
 
     News news = null;
     Video video = null;
@@ -92,6 +94,23 @@ public class HTMLSnapshotServlet extends HttpServlet {
       title = "ورزش ۳ | نسخه موبایل";
       url = "http://www.varzesh3mob.com";
       description = "آخرین اخبار ورزشی بهینه شده برای موبایل";
+
+      try {
+        List<News> lastNews = newsBean.lastNews(50);
+        newsList = new StringBuilder("<h1>آخرین اخبار</h1>");
+        
+        for (News newsItem : lastNews) {
+          newsList.append("<article>");
+          newsList.append("<h5>".concat(newsItem.getPreTitle()).concat("</h5>"));
+          newsList.append("<h1>".concat(newsItem.getTitle()).concat("</h1>"));
+          newsList.append("<p>".concat(newsItem.getAbstractText()).concat("</p>"));
+          newsList.append("<a href='http://varzesh3mob.com/#!/news/".concat(newsItem.getId() + "").concat("'>ادامه ...</a>"));
+          newsList.append("</article>");
+        }
+      } catch (Exception ex) {
+        Logger.getLogger(HTMLSnapshotServlet.class.getName()).log(Level.SEVERE, "Error in fetching the last news list! ".concat(ex.getMessage()));
+      }
+
     } else if (hashParameters.trim().equalsIgnoreCase("/intfoot")) {
       title = "اخبار فوتبال hdvhk";
       url = "http://varzesh3mob.com/#!/intfoot";
@@ -114,9 +133,9 @@ public class HTMLSnapshotServlet extends HttpServlet {
         NewspaperCollection lastNewspaper = newspaperBean.lastNewspaper();
         NewspaperPage page = lastNewspaper.getNewspapers().get(0);
         Long id = page.getId();
-        
+
         if (id != null && id < 0) {
-          image = "http://varzesh3mob.com/service/image/newspaper/" + id + "/photo.png";          
+          image = "http://varzesh3mob.com/service/image/newspaper/" + id + "/photo.png";
         }
       } catch (Exception ex) {
         Logger.getLogger(HTMLSnapshotServlet.class.getName()).log(Level.SEVERE, "Error in fetching the last newspaper! ".concat(ex.getMessage()));
@@ -204,7 +223,7 @@ public class HTMLSnapshotServlet extends HttpServlet {
     out.println(MessageFormat.format(template, new Object[]{"fb:app_id", appId}));
 
     out.println("</head>");
-    out.println("<body>");
+    out.println("<body style='direction: rtl'>");
 
     if (news != null) {
       out.println("<h4>" + news.getPreTitle() + "</h4>");
@@ -214,6 +233,10 @@ public class HTMLSnapshotServlet extends HttpServlet {
     if (news != null) {
       out.println("<p>" + news.getAbstractText() + "</p>");
       out.println("<p>" + news.getMainText() + "</p>");
+    }
+    
+    if (newsList != null) {
+      out.println(newsList.toString());
     }
 
     out.println("</body>");
