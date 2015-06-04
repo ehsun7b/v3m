@@ -101,7 +101,7 @@ public class HTMLSnapshotServlet extends HttpServlet {
         
         for (News newsItem : lastNews) {
           newsList.append("<article>");
-          newsList.append("<h5>".concat(newsItem.getPreTitle()).concat("</h5>"));
+          newsList.append("<h4>".concat(newsItem.getPreTitle()).concat("</h4>"));
           newsList.append("<h1>".concat(newsItem.getTitle()).concat("</h1>"));
           newsList.append("<p>".concat(newsItem.getAbstractText()).concat("</p>"));
           newsList.append("<a href='http://varzesh3mob.com/#!/news/".concat(newsItem.getId() + "").concat("'>ادامه ...</a>"));

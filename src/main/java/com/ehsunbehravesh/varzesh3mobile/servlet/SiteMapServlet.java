@@ -68,9 +68,9 @@ public class SiteMapServlet extends HttpServlet
   }
 
   private void printNewsSiteMap(PrintWriter out) {
-    List<News> hotNews = this.newsBean.hotNews(50);
+    List<News> hotNews = this.newsBean.lastNews(100);
 
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     for (News hotNew : hotNews) {
       out.println("<url>");
