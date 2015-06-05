@@ -31,11 +31,5 @@ public class FetchRankingIran {
     }
 
     return table.outerHtml();
-  }
-
-  public static void main(String[] args) throws Exception {
-    String html = new FetchRankingIran().fetchHTML();
-    System.out.println(html);
-
-  }
+  }  
 }
