@@ -74,7 +74,7 @@ public class SiteMapServlet extends HttpServlet
 
     for (News hotNew : hotNews) {
       out.println("<url>");
-      out.println(MessageFormat.format("<loc>http://varzesh3mob.com/#!/news/{0}</loc>", new Object[] { hotNew.getId().toString() }));
+      out.println(MessageFormat.format("<loc>http://varzesh3mob.com/news/{0}</loc>", new Object[] { hotNew.getId().toString() }));
       out.println("<news:news>");
       out.println("<news:publication>");
 

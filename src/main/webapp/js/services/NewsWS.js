@@ -60,7 +60,7 @@ app.factory("NewsWS", function ($rootScope, Database, Server) {
 
   instance.init = function () {
     try {
-      instance.wsNews = new WebSocket("ws://" + window.location.host + ":8080" + "/news");
+      instance.wsNews = new WebSocket("ws://" + window.location.host + "/news");
       instance.wsNews.onerror = instance.wsNewsError;
       instance.wsNews.onopen = instance.wsNewsOpen;
       instance.wsNews.onclose = instance.wsNewsClose;
